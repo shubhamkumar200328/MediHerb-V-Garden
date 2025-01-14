@@ -1,0 +1,17 @@
+body {
+  margin: 0;
+  padding: 0;
+  background-color: hsl(180, 3%, 15%);
+  color: #f0f8ff;
+}
+/* Ensures the footer is at the bottom of the viewport or content */
+.pageWrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Full height of the viewport */
+}
+
+.content {
+  flex: 1; /* Takes up the remaining space */
+  /* padding-bottom: 60px; */
+}

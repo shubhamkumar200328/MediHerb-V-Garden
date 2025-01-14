@@ -1,0 +1,118 @@
+/* Home.css */
+
+/* Hero Section */
+.hero-section {
+  background: #f0fdf4; /* Light green */
+  color: #14532d; /* Deep green */
+  text-align: center;
+  padding: 3rem 1rem;
+}
+
+.hero-section h1 {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.hero-section p {
+  font-size: 1.2rem;
+  margin-bottom: 1.5rem;
+}
+
+.hero-section .btn-primary {
+  background: #15803d; /* Dark green */
+  color: #fff;
+  padding: 0.8rem 2rem;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.hero-section .btn-primary:hover {
+  background: #166534;
+}
+
+/* Overview Section */
+.overview-section {
+  background: #ffffff; /* White */
+  padding: 3rem 1rem;
+}
+
+.overview-section h2 {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #166534;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.card {
+  background: #e9f5e9; /* Soft green */
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  text-align: center;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.card h3 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #14532d;
+  margin-bottom: 1rem;
+}
+
+.card p {
+  color: #14532d;
+}
+
+/* CTA Section */
+.cta-section {
+  background: #14532d; /* Dark green */
+  color: #fff;
+  text-align: center;
+  padding: 3rem 1rem;
+}
+
+.cta-section h2 {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.cta-section p {
+  font-size: 1.2rem;
+  margin-bottom: 1.5rem;
+}
+
+.cta-section .btn-secondary {
+  background: #ffffff; /* White */
+  color: #14532d; /* Deep green */
+  padding: 0.8rem 2rem;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.cta-section .btn-secondary:hover {
+  background: #e9f5e9; /* Soft green */
+  color: #15803d;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .hero-section h1,
+  .overview-section h2,
+  .cta-section h2 {
+    font-size: 2rem;
+  }
+
+  .hero-section p,
+  .overview-section .card p,
+  .cta-section p {
+    font-size: 1rem;
+  }
+}

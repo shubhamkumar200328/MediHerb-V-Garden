@@ -1,0 +1,112 @@
+/* Contact.css */
+
+/* Container Styles */
+.contact-container {
+  background-color: #f9fef7; /* Soft herbal green */
+  color: #2e4f2e; /* Earthy green text */
+  padding: 2rem;
+  margin: 2rem auto;
+  border-radius: 10px;
+  max-width: 800px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Title Styling */
+.contact-title {
+  font-size: 2rem;
+  text-align: center;
+  font-weight: bold;
+  color: #1d3c1d;
+  margin-bottom: 1rem;
+  border-bottom: 2px solid #a5d6a7;
+  padding-bottom: 0.5rem;
+}
+
+/* Description Styling */
+.contact-description {
+  font-size: 1.1rem;
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #4b6b4b;
+}
+
+/* Form Styling */
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-label {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  color: #2e4f2e;
+}
+
+.form-input,
+.form-textarea {
+  padding: 0.8rem;
+  border: 1px solid #a5d6a7;
+  border-radius: 5px;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+.form-input:focus,
+.form-textarea:focus {
+  border-color: #4caf50;
+}
+
+.form-textarea {
+  resize: none;
+  height: 120px;
+}
+
+/* Button Styling */
+.contact-button {
+  background-color: #4caf50;
+  color: #fff;
+  padding: 0.8rem 1.5rem;
+  font-size: 1rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.contact-button:hover {
+  background-color: #388e3c;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .contact-container {
+    padding: 1rem;
+    margin: 1rem auto;
+  }
+
+  .contact-title {
+    font-size: 1.8rem;
+  }
+
+  .contact-description {
+    font-size: 1rem;
+  }
+
+  .form-input,
+  .form-textarea {
+    font-size: 0.9rem;
+  }
+
+  .contact-button {
+    font-size: 0.9rem;
+  }
+}

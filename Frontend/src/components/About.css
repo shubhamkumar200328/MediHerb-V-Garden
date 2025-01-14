@@ -1,0 +1,58 @@
+/* About.css */
+
+/* Container Styles */
+.about-container {
+  background-color: #f9fef7; /* Soft natural green #21251f #f8faf7*/
+  color: #2e4f2e; /* Earthy green text */
+  padding: 2rem;
+  margin: 2rem auto;
+  border-radius: 10px;
+  max-width: 800px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.6;
+}
+
+/* Title Styling */
+.about-title {
+  font-size: 2rem;
+  text-align: center;
+  font-weight: bold;
+  color: #1d3c1d;
+  margin-bottom: 1rem;
+  border-bottom: 2px solid #a5d6a7;
+  padding-bottom: 0.5rem;
+}
+
+/* Description and Mission Styling */
+.about-description,
+.about-mission,
+.about-closing {
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+  text-align: justify;
+}
+
+/* Highlight Text */
+.highlight {
+  color: #4caf50; /* Bright herbal green */
+  font-weight: bold;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .about-container {
+    padding: 1rem;
+    margin: 1rem auto;
+  }
+
+  .about-title {
+    font-size: 1.8rem;
+  }
+
+  .about-description,
+  .about-mission,
+  .about-closing {
+    font-size: 1rem;
+  }
+}
