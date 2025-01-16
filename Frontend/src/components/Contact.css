@@ -1,6 +1,9 @@
 /* Contact.css */
 
 /* Container Styles */
+body {
+  background-color: #1d3c1d;
+}
 .contact-container {
   background-color: #f9fef7; /* Soft herbal green */
   color: #2e4f2e; /* Earthy green text */

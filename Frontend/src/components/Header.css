@@ -1,6 +1,5 @@
 /* Header.css */
 
-/* Header Container */
 .header-container {
   display: flex;
   justify-content: space-between;
@@ -19,7 +18,7 @@
 
 .logo-text {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  color: #a7f3d0; /* Light herbal green */
+  color: #1d3c1d; /* Light herbal green a7f3d0 1d3c1d*/
 }
 
 /* Navigation Menu */
