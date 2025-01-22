@@ -1,14 +1,11 @@
 /* Contact.css */
 
 /* Container Styles */
-body {
-  background-color: #1d3c1d;
-}
 .contact-container {
-  background-color: #f9fef7; /* Soft herbal green */
+  background-color: #cff6db; /* Soft herbal green */
   color: #2e4f2e; /* Earthy green text */
   padding: 2rem;
-  margin: 2rem auto;
+  margin: 4rem auto;
   border-radius: 10px;
   max-width: 800px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);

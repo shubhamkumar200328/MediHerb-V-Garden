@@ -2,10 +2,10 @@
 
 /* Container Styles */
 .about-container {
-  background-color: #f9fef7; /* Soft natural green #21251f #f8faf7*/
+  background-color: #cff6db; /* Soft natural green #21251f #f8faf7*/
   color: #2e4f2e; /* Earthy green text */
   padding: 2rem;
-  margin: 2rem auto;
+  margin: 6rem auto;
   border-radius: 10px;
   max-width: 800px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
