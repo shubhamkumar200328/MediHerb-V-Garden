@@ -26,8 +26,32 @@ app.use("/media", express.static(path.join(__dirname, "public/media")))
 app.get("/", (req, res) => {
   res.send("server is ready.")
 })
+
 app.get("/api/plants", (req, res) => {
-  res.json(plants)
+  let filteredPlants = plants
+
+  // Filter by name if provided
+  if (req.query.name) {
+    filteredPlants = filteredPlants.filter((plant) =>
+      plant.name.toLowerCase().includes(req.query.name.toLowerCase())
+    )
+  }
+
+  // Filter by medicinalUse if provided
+  if (req.query.medicinalUse) {
+    filteredPlants = filteredPlants.filter(
+      (plant) => plant.medicinalUse === req.query.medicinalUse
+    )
+  }
+
+  // Filter by region if provided
+  if (req.query.region) {
+    filteredPlants = filteredPlants.filter(
+      (plant) => plant.region === req.query.region
+    )
+  }
+
+  res.json(filteredPlants)
 })
 
 app.get("/api/plants/:id", (req, res) => {

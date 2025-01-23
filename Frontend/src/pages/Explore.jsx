@@ -38,11 +38,13 @@ const Explore = () => {
             type="text"
             placeholder="Search plants by name..."
             onChange={handleSearch}
+            value={filters.name} // Ensure the input value is updated
           />
           <select
             onChange={(e) =>
               setFilters({ ...filters, medicinalUse: e.target.value })
             }
+            value={filters.medicinalUse} // Sync the selected value with the state
           >
             <option value="">All Uses</option>
             <option value="Immunity">Immunity</option>
@@ -50,6 +52,7 @@ const Explore = () => {
           </select>
           <select
             onChange={(e) => setFilters({ ...filters, region: e.target.value })}
+            value={filters.region} // Sync the selected value with the state
           >
             <option value="">All Regions</option>
             <option value="India">India</option>
