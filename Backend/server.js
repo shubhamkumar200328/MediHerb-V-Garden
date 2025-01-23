@@ -19,8 +19,8 @@ app.use(json())
 
 // Serve static files from the "public" directory
 app.use("/images", express.static(path.join(__dirname, "public/images")))
-app.use("/models", express.static(path.join(__dirname, "public/models")))
-app.use("/media", express.static(path.join(__dirname, "public/media")))
+// app.use("/models", express.static(path.join(__dirname, "public/models")))
+// app.use("/media", express.static(path.join(__dirname, "public/media")))
 
 // Routes
 app.get("/", (req, res) => {

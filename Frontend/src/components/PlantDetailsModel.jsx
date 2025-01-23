@@ -1,34 +1,33 @@
-import React, { useEffect, useState } from "react"
-import { fetchPlantDetails } from "../services/api.js"
+import React from "react"
+import "./PlantDetailsModel.css"
 
-const PlantDetailsModal = ({ plantId }) => {
-  const [plantDetails, setPlantDetails] = useState(null)
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetchPlantDetails(plantId)
-        setPlantDetails(response.data)
-      } catch (error) {
-        console.error("Error fetching plant details:", error)
-      }
-    }
-    fetchData()
-  }, [plantId])
-
-  if (!plantDetails) return null
+const PlantDetailsModal = ({ plant, onClose }) => {
+  if (!plant) return null // If no plant data, return null
 
   return (
     <div className="modal">
-      <h2>{plantDetails.name}</h2>
-      <img src={plantDetails.image} alt={plantDetails.name} />
-      <p>{plantDetails.description}</p>
-      <p>
-        <strong>Medicinal Use:</strong> {plantDetails.medicinalUse}
-      </p>
-      <p>
-        <strong>Region:</strong> {plantDetails.region}
-      </p>
+      <div className="modal-content">
+        <button onClick={onClose} className="close-btn">
+          Close
+        </button>
+        <h2>{plant.name}</h2>
+        <img src={plant.image} alt={plant.name} className="modal-image" />
+        <p>
+          <strong>Description:</strong> {plant.description}
+        </p>
+        <p>
+          <strong>Medicinal Use:</strong> {plant.medicinalUse}
+        </p>
+        <p>
+          <strong>Region:</strong> {plant.region}
+        </p>
+        <p>
+          <strong>Botanical Details:</strong> {plant.botanicalDetails}
+        </p>
+        <p>
+          <strong>Cultivation Tips:</strong> {plant.cultivationTips}
+        </p>
+      </div>
     </div>
   )
 }

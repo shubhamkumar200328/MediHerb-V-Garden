@@ -5,6 +5,7 @@ import Home from "../pages/Home"
 import About from "../pages/About"
 import Contact from "../pages/Contact"
 import Explore from "../pages/Explore"
+import PlantDetails from "../pages/PlantDetails"
 
 const AppRouter = () => {
   return (
@@ -16,6 +17,7 @@ const AppRouter = () => {
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/plant-details" element={<Explore />} />
+          <Route path="/plant/:id" element={<PlantDetails />} />
         </Routes>
       </main>
       {/* <Footer /> */}

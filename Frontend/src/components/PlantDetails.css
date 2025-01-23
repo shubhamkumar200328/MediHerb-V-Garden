@@ -1,0 +1,102 @@
+/* PlantDetails.css */
+
+/* General page layout */
+.plant-details-page {
+  max-width: 900px;
+  margin: 30px auto;
+  padding: 40px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Plant Image */
+.plant-details-image {
+  width: 100%;
+  max-width: 500px;
+  height: auto;
+  margin: 20px 0;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.plant-details-image:hover {
+  transform: scale(1.05);
+}
+
+/* Header */
+.plant-details-page h1 {
+  font-size: 2.5rem;
+  color: #2c3e50;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* Info Section */
+.plant-details-info {
+  font-size: 1.2rem;
+  color: #555;
+  line-height: 1.8;
+  margin-top: 20px;
+}
+
+.plant-details-info p {
+  margin-bottom: 15px;
+}
+
+.plant-details-info strong {
+  color: #2980b9;
+  font-weight: bold;
+}
+
+/* Loading and Error Handling */
+.loading-container,
+.error-container {
+  text-align: center;
+  margin-top: 50px;
+}
+
+.loading,
+.error {
+  font-size: 1.6rem;
+  color: #7f8c8d;
+}
+
+.error {
+  color: #e74c3c;
+}
+
+/* Button to go back */
+.back-button {
+  display: inline-block;
+  margin-top: 30px;
+  padding: 10px 20px;
+  background-color: #2980b9;
+  color: white;
+  font-size: 1.2rem;
+  text-decoration: none;
+  border-radius: 6px;
+  text-align: center;
+  transition: background-color 0.3s;
+}
+
+.back-button:hover {
+  background-color: #3498db;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .plant-details-page {
+    padding: 20px;
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+
+  .plant-details-info {
+    font-size: 1rem;
+  }
+}
