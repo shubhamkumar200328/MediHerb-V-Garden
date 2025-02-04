@@ -6,6 +6,8 @@ import About from "../pages/About"
 import Contact from "../pages/Contact"
 import Explore from "../pages/Explore"
 import PlantDetails from "../pages/PlantDetails"
+import AddPlant from "../components/AddPlant"
+import ThreedViewVideo from "../pages/ThreedViewVideo"
 
 const AppRouter = () => {
   return (
@@ -18,6 +20,8 @@ const AppRouter = () => {
           <Route path="/contact" element={<Contact />} />
           <Route path="/plant-details" element={<Explore />} />
           <Route path="/plant/:id" element={<PlantDetails />} />
+          <Route path="/add-plant" element={<AddPlant />} />
+          <Route path="/3D-view-info-video" element={<ThreedViewVideo />} />
         </Routes>
       </main>
       {/* <Footer /> */}

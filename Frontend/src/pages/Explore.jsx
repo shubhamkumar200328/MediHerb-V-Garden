@@ -4,6 +4,23 @@ import "../components/Explore.css"
 import PlantCard from "../components/PlantCard.jsx"
 import Header from "../components/Header.jsx"
 
+// Custom hook for debouncing the search input
+const useDebounce = (value, delay) => {
+  const [debouncedValue, setDebouncedValue] = useState(value)
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedValue(value)
+    }, delay)
+
+    return () => {
+      clearTimeout(handler)
+    }
+  }, [value, delay])
+
+  return debouncedValue
+}
+
 const Explore = () => {
   const [plants, setPlants] = useState([])
   const [filters, setFilters] = useState({
@@ -12,18 +29,28 @@ const Explore = () => {
     region: "",
   })
 
+  // Debounced value for the search filter
+  const debouncedName = useDebounce(filters.name, 500) // 500ms delay
+
+  // Fetch plants data whenever filters change
   useEffect(() => {
     const fetchData = async () => {
+      console.log("Current filters:", filters) // Log filters to check their values
       try {
-        const response = await fetchPlants(filters)
+        // If no filters are applied, fetch all plants
+        const response = await fetchPlants({ ...filters, name: debouncedName })
+        console.log("Fetched plants:", response.data) // Log the response
         setPlants(response.data)
       } catch (error) {
         console.error("Error fetching plants:", error)
       }
     }
-    fetchData()
-  }, [filters])
 
+    // Trigger fetch only if the filters change
+    fetchData()
+  }, [filters, debouncedName])
+
+  // Handle search input change
   const handleSearch = (e) => {
     setFilters({ ...filters, name: e.target.value })
   }
@@ -38,7 +65,7 @@ const Explore = () => {
             type="text"
             placeholder="Search plants by name..."
             onChange={handleSearch}
-            value={filters.name} // Ensure the input value is updated
+            value={filters.name} // Ensure the input value is updated with filters.name
           />
           <select
             onChange={(e) =>
@@ -60,9 +87,11 @@ const Explore = () => {
           </select>
         </div>
         <div className="plant-grid">
-          {plants.map((plant) => (
-            <PlantCard key={plant.id} plant={plant} />
-          ))}
+          {plants.length > 0 ? (
+            plants.map((plant) => <PlantCard key={plant.id} plant={plant} />)
+          ) : (
+            <p>No plants found based on the selected filters.</p>
+          )}
         </div>
       </div>
     </>

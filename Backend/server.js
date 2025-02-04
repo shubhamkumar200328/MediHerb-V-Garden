@@ -2,6 +2,7 @@ import express, { json } from "express"
 import cors from "cors"
 import plants from "./data/plants.js"
 import path from "path"
+import fs from "fs"
 
 // Get the directory name from import.meta.url
 const __dirname = path.dirname(new URL(import.meta.url).pathname)
@@ -19,8 +20,17 @@ app.use(json())
 
 // Serve static files from the "public" directory
 app.use("/images", express.static(path.join(__dirname, "public/images")))
-// app.use("/models", express.static(path.join(__dirname, "public/models")))
-// app.use("/media", express.static(path.join(__dirname, "public/media")))
+
+// Serve the plants.js file as a static file
+app.get("/data/plants.js", (req, res) => {
+  const filePath = path.resolve(__dirname, "data", "plants.js") // Absolute path using path.resolve
+  res.sendFile(filePath, (err) => {
+    if (err) {
+      console.error("Error sending file:", err)
+      res.status(500).send("Unable to send plants.js file.")
+    }
+  })
+})
 
 // Routes
 app.get("/", (req, res) => {
@@ -28,30 +38,55 @@ app.get("/", (req, res) => {
 })
 
 app.get("/api/plants", (req, res) => {
-  let filteredPlants = plants
+  res.json(plants)
+})
 
-  // Filter by name if provided
-  if (req.query.name) {
-    filteredPlants = filteredPlants.filter((plant) =>
-      plant.name.toLowerCase().includes(req.query.name.toLowerCase())
-    )
+// Add this new route for adding a plant
+app.post("/api/plants", (req, res) => {
+  const newPlant = req.body
+
+  // Log the received data to see what's coming from the frontend
+  console.log("Received new plant data:", newPlant)
+
+  // Check if all required fields are present
+  if (
+    !newPlant.name ||
+    !newPlant.image ||
+    !newPlant.description ||
+    !newPlant.medicinalUse ||
+    !newPlant.region ||
+    !newPlant.botanicalDetails ||
+    !newPlant.cultivationTips
+  ) {
+    console.error("Missing required fields!")
+    return res.status(400).json({ error: "All fields are required." })
   }
 
-  // Filter by medicinalUse if provided
-  if (req.query.medicinalUse) {
-    filteredPlants = filteredPlants.filter(
-      (plant) => plant.medicinalUse === req.query.medicinalUse
-    )
-  }
+  // Log before pushing the new plant
+  console.log("Adding new plant to the array...")
+  plants.push(newPlant)
 
-  // Filter by region if provided
-  if (req.query.region) {
-    filteredPlants = filteredPlants.filter(
-      (plant) => plant.region === req.query.region
-    )
-  }
+  // Log before attempting to write to the file
+  const filePath = path.resolve(__dirname, "data", "plants.js") // Absolute path
+  const dataToWrite = `const plants = ${JSON.stringify(
+    plants,
+    null,
+    2
+  )};\n\nexport default plants;`
 
-  res.json(filteredPlants)
+  console.log("Writing to plants.js file...")
+
+  // Attempt to write to plants.js
+  fs.writeFile(filePath, dataToWrite, (err) => {
+    if (err) {
+      console.error("Error saving to file:", err)
+      return res.status(500).json({ error: "Failed to save data." })
+    }
+
+    // Log success and respond with the new plant
+    console.log("New plant added successfully:", newPlant)
+    res.status(201).json(newPlant)
+  })
 })
 
 app.get("/api/plants/:id", (req, res) => {

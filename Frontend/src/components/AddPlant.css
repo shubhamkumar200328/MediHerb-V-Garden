@@ -1,0 +1,88 @@
+/* AddPlant.css */
+
+/* body {
+  font-family: "Arial", sans-serif;
+  background-color: #f4f4f9;
+  color: #333;
+  margin: 0;
+  padding: 0;
+}
+
+h2 {
+  text-align: center;
+  color: #4caf50;
+  margin-top: 20px;
+} */
+
+.formDiv form {
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.formDiv label {
+  display: block;
+  margin: 12px 0 6px;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.formDiv input[type="text"],
+.formDiv textarea {
+  width: 100%;
+  padding: 8px;
+  margin: 6px 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.formDiv textarea {
+  height: 120px;
+  resize: vertical;
+}
+
+.formDiv button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin-top: 20px;
+  background-color: #4caf50;
+  color: white;
+  font-size: 1.2rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.formDiv button:hover {
+  background-color: #45a049;
+}
+
+.formDiv form label input:focus,
+.formDiv form label textarea:focus {
+  outline: none;
+  border-color: #4caf50;
+}
+
+.formDiv .formDiv form input[required] {
+  border-color: #ff0000;
+}
+
+.formDiv form input[required]:valid {
+  border-color: #4caf50;
+}
+
+.formDiv form input[required]:invalid {
+  border-color: #ff0000;
+}
+
+.formDiv form .error-message {
+  color: red;
+  font-size: 0.9rem;
+  margin-top: 5px;
+}

@@ -6,8 +6,8 @@ const Home = () => {
     <>
       <Header />
       <div className="home-container">
-        {/* Hero Section */}
-        <div className="hero-section bg-green-100 text-green-900 py-12 px-4 text-center">
+        {/* Hero Section bg-[#589c7b] */}
+        <div className="hero-section bg-[#589c7b] text-[#101820FF] mt-7 py-12 px-4 text-center">
           <h1 className="text-4xl font-bold mb-4">
             Welcome to MediHerb V Garden
           </h1>
@@ -61,8 +61,8 @@ const Home = () => {
         </div>
 
         {/* Call-to-Action Section */}
-        <div className="cta-section bg-green-900 text-white py-12 px-6 text-center">
-          <h2 className="text-3xl font-bold mb-4">Join Us Today</h2>
+        <div className="cta-section bg-[#3e3e42] text-[#006B38FF] py-12 px-6 text-center">
+          <h2 className="text-3xl font-bold mb-4 text-white">Join Us Today</h2>
           <p className="text-lg mb-6">
             Experience the wonders of nature with MediHerb V Garden. Start your
             journey now!

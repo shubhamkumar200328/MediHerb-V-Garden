@@ -22,6 +22,12 @@ const Header = () => {
           <li>
             <Link to="/contact">Contact</Link>
           </li>
+          <li>
+            <Link to="/add-plant">Add new plant</Link>
+          </li>
+          <li>
+            <Link to="/3D-view-info-video">3D-V-V</Link>
+          </li>
         </ul>
       </nav>
     </header>

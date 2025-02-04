@@ -1,102 +1,204 @@
-/* PlantDetails.css */
+/* General Styles */
+body {
+  font-family: "Poppins", sans-serif;
+  background-color: #f4f8f2;
+  color: #2f4f2f;
+  margin: 0;
+  padding: 0;
+}
 
-/* General page layout */
-.plant-details-page {
+/* Plant Details Container */
+.plant-details-container {
   max-width: 900px;
-  margin: 30px auto;
-  padding: 40px;
+  margin: 40px auto;
+  padding: 20px 20px 20px 10px;
   background-color: #ffffff;
   border-radius: 12px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  /* box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); */
+  /* box-shadow: 0px 5px 10px 0px rgba(0, 255, 255, 0.7); */
+  box-shadow: 0px 5px 10px 0px rgba(2, 167, 10, 0.699);
 }
 
-/* Plant Image */
-.plant-details-image {
-  width: 100%;
-  max-width: 500px;
-  height: auto;
-  margin: 20px 0;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease;
-}
-
-.plant-details-image:hover {
-  transform: scale(1.05);
-}
-
-/* Header */
-.plant-details-page h1 {
-  font-size: 2.5rem;
-  color: #2c3e50;
-  margin-bottom: 20px;
+/* Title */
+.plant-title {
   text-align: center;
-}
-
-/* Info Section */
-.plant-details-info {
-  font-size: 1.2rem;
-  color: #555;
-  line-height: 1.8;
-  margin-top: 20px;
-}
-
-.plant-details-info p {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #3b7a57;
   margin-bottom: 15px;
 }
 
-.plant-details-info strong {
-  color: #2980b9;
+/* Plant Image */
+.plant-image {
+  width: 100%;
+  max-width: 350px;
+  display: block;
+  margin: 0 auto;
+  border-radius: 12px;
+  border: 1px solid #3b7a57;
+  object-fit: cover; /* Ensures proper image scaling */
+}
+
+/* Plant Info */
+.plant-details {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 15px;
+}
+
+.plant-info p {
+  font-size: 1rem;
+  margin: 8px 0;
+}
+
+/* Scientific Classification  #4e5947 #3b7a57 */
+.scientific-classification {
+  background-color: #4e6342;
+  color: aliceblue;
+  padding: 15px;
+  border-radius: 0px;
+  margin: 20px 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+/* General styles for .col2 and .col3 */
+.scientific-classification .col2,
+.col3 {
+  width: 20%; /* Set the width to 20% by default */
+  height: auto;
+  margin: 20px auto;
+  background-color: black;
+  font-size: 100px; /* Default font size */
+  font-weight: bolder;
+  border-radius: 5%;
+  text-align: center;
+  padding-top: 2%;
+  cursor: pointer;
+  color: white; /* Make the text white for better contrast */
+  transition: all 0.3s ease; /* Smooth transition for width and font size changes */
+}
+
+/* Responsive styles for tablets */
+@media screen and (max-width: 768px) {
+  .scientific-classification .col2,
+  .col3 {
+    width: 40%; /* Set width to 40% on smaller screens */
+    font-size: 60px; /* Adjust font size for better readability */
+    margin: 15px auto;
+  }
+}
+
+/* Responsive styles for small mobile devices */
+@media screen and (max-width: 480px) {
+  .scientific-classification .col2,
+  .col3 {
+    width: 80%; /* Set width to 80% on mobile devices */
+    font-size: 40px; /* Adjust font size further */
+    margin: 10px auto;
+  }
+}
+
+.scientific-classification h3 {
+  text-align: center;
+  color: #0fd90f;
   font-weight: bold;
 }
 
-/* Loading and Error Handling */
+.scientific-classification p {
+  font-size: 1rem;
+  margin: 5px 0;
+}
+
+/* Additional Info */
+.additional-info {
+  padding: 15px;
+  margin: 20px 0;
+}
+
+.additional-info a {
+  color: #3b7a57;
+  font-weight: bold;
+}
+
+.additional-info p {
+  font-size: 1rem;
+  margin: 10px 0;
+}
+
+/* Loading and Error States */
 .loading-container,
 .error-container {
   text-align: center;
-  margin-top: 50px;
+  padding: 50px;
 }
 
-.loading,
+.loading {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #3b7a57;
+}
+
 .error {
-  font-size: 1.6rem;
-  color: #7f8c8d;
-}
-
-.error {
-  color: #e74c3c;
-}
-
-/* Button to go back */
-.back-button {
-  display: inline-block;
-  margin-top: 30px;
-  padding: 10px 20px;
-  background-color: #2980b9;
-  color: white;
   font-size: 1.2rem;
-  text-decoration: none;
-  border-radius: 6px;
-  text-align: center;
-  transition: background-color 0.3s;
-}
-
-.back-button:hover {
-  background-color: #3498db;
+  font-weight: bold;
+  color: #d9534f;
 }
 
 /* Responsive Design */
-@media (max-width: 768px) {
-  .plant-details-page {
-    padding: 20px;
+@media (min-width: 768px) {
+  .plant-details {
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    text-align: left;
   }
 
-  h1 {
-    font-size: 2rem;
+  .plant-info {
+    max-width: 50%;
   }
+}
 
-  .plant-details-info {
-    font-size: 1rem;
-  }
+/* Popup Overlay */
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+/* Popup Box */
+.popup {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  min-height: 600px;
+  width: 80%;
+  max-width: 900px;
+  text-align: center;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Popup Close Button */
+.popup button {
+  background-color: #3b7a57;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.popup button:hover {
+  background-color: #2f5e43;
 }

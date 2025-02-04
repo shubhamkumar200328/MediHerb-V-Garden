@@ -2,7 +2,8 @@ const plants = [
   {
     id: 1,
     name: "Tulsi",
-    image: "/images/tulsi.png",
+    image:
+      "https://cdn.pixabay.com/photo/2020/06/18/14/33/clove-basil-5313784_960_720.jpg",
     description: "Sacred basil used for immunity and respiratory health.",
     medicinalUse: "Immunity",
     region: "India",
@@ -10,11 +11,24 @@ const plants = [
       "Tulsi (Ocimum sanctum) is an aromatic shrub native to the Indian subcontinent.",
     cultivationTips:
       "Tulsi grows best in well-drained soil with plenty of sunlight. It should be watered regularly but not overwatered.",
+    Kingdom: "Plantae",
+    Clade: "Angiosperms, Eudicots, Asterids",
+    Order: "Lamiales",
+    Family: "Lamiaceae",
+    Genus: "Ocimum",
+    Species: "O. sanctum",
+    BinomialName: "Ocimum sanctum",
+    About:
+      "Ocimum sanctum, commonly known as tulsi or holy basil, is an aromatic perennial plant native to the Indian subcontinent. It is widely used in traditional medicine and religious rituals.",
+    DetailDescription:
+      "Tulsi is a small, bushy shrub with green or purple leaves, serrated margins, and hairy stems. It produces small purple or white flowers and has a strong aroma. The plant has significant medicinal properties, including anti-inflammatory, antimicrobial, and adaptogenic effects.",
+    Reference: "https://en.wikipedia.org/wiki/Ocimum_tenuiflorum",
   },
   {
     id: 2,
     name: "Neem",
-    image: "/images/neem.png",
+    image:
+      "https://inaturalist-open-data.s3.amazonaws.com/photos/466639451/large.jpeg",
     description: "Known for its antibacterial and antifungal properties.",
     medicinalUse: "Skin Care",
     region: "India",
@@ -22,11 +36,24 @@ const plants = [
       "Neem (Azadirachta indica) is a tree that can grow up to 15–20 meters tall, native to the Indian subcontinent.",
     cultivationTips:
       "Neem thrives in tropical and subtropical climates with moderate to high rainfall. It prefers dry, well-drained soil.",
+    Kingdom: "Plantae",
+    Clade: "Angiosperms, Eudicots, Rosids",
+    Order: "Sapindales",
+    Family: "Meliaceae",
+    Genus: "Azadirachta",
+    Species: "A. indica",
+    BinomialName: "Azadirachta indica",
+    About:
+      "Azadirachta indica, commonly known as neem, is a fast-growing evergreen tree native to the Indian subcontinent. It has been used for centuries in Ayurvedic medicine.",
+    DetailDescription:
+      "Neem trees can grow up to 15-20 meters tall, with pinnate leaves and fragrant white flowers. The fruits are smooth, olive-shaped drupes with medicinal properties. Neem is widely known for its antibacterial, antifungal, and insecticidal properties.",
+    Reference: "https://en.wikipedia.org/wiki/Neem",
   },
   {
     id: 3,
     name: "Aloe Vera",
-    image: "/images/aloe-vera.png",
+    image:
+      "https://cdn.pixabay.com/photo/2020/01/01/10/11/aloe-vera-4733276_960_720.jpg",
     description: "Aloe Vera is commonly used for skin hydration and healing.",
     medicinalUse: "Skin Care",
     region: "Tropical",
@@ -34,11 +61,24 @@ const plants = [
       "Aloe Vera (Aloe barbadensis miller) is a succulent plant species that has been used for centuries for its healing properties.",
     cultivationTips:
       "Aloe Vera thrives in dry, sandy, well-drained soil. It requires full sun but can also tolerate partial shade.",
+    Kingdom: "Plantae",
+    Clade: "Angiosperms, Monocots",
+    Order: "Asparagales",
+    Family: "Asphodelaceae",
+    Genus: "Aloe",
+    Species: "A. vera",
+    BinomialName: "Aloe vera",
+    About:
+      "Aloe vera is a succulent plant species widely cultivated for its medicinal and cosmetic uses. It is native to the Arabian Peninsula but has naturalized in many regions.",
+    DetailDescription:
+      "Aloe vera has thick, fleshy leaves containing a gel-like substance known for its soothing and healing properties. It is commonly used for skincare, burns, and digestive health.",
+    Reference: "https://en.wikipedia.org/wiki/Aloe_vera",
   },
   {
     id: 4,
     name: "Ashwagandha",
-    image: "/images/ashwagandha.png",
+    image:
+      "https://media.istockphoto.com/id/1684694377/photo/commonly-known-as-ashwagandha-is-an-important-medicinal-plant-that-has-been-used-in-ayurved.jpg?s=1024x1024&w=is&k=20&c=IEjtoUzYIQuRkyokC6_x_qMcWqzNnJJagCGJzNzyp68=",
     description: "Used to reduce stress and improve vitality.",
     medicinalUse: "Immunity",
     region: "India",
@@ -46,12 +86,23 @@ const plants = [
       "Ashwagandha (Withania somnifera) is a small shrub native to India and North Africa, known for its adaptogenic properties.",
     cultivationTips:
       "Ashwagandha prefers dry, loamy soil and needs full sun. It is drought-tolerant and should not be overwatered.",
+    Kingdom: "Plantae",
+    Clade: "Angiosperms, Eudicots, Asterids",
+    Order: "Solanales",
+    Family: "Solanaceae",
+    Genus: "Withania",
+    Species: "W. somnifera",
+    BinomialName: "Withania somnifera",
+    About:
+      "Ashwagandha, also known as Indian ginseng, is a medicinal herb used in Ayurvedic medicine for its adaptogenic properties.",
+    DetailDescription:
+      "Ashwagandha is a small shrub with yellow flowers and red fruit. It is known for reducing stress, improving energy levels, and supporting immune function.",
+    Reference: "https://en.wikipedia.org/wiki/Withania_somnifera",
   },
   {
     id: 5,
     name: "Mint",
-    image:
-      "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.flipkart.com%2Fr-star-garden-tulsi-plant%2Fp%2Fitm954db032262e6%3Fpid%3DPSGGPFSGXVSRCXTX%26cmpid%3Dproduct.share.pp%26_refId%3DPP.c5dc2c9e-fd48-48f7-96ed-0ce9744f0ade.PSGGPFSGXVSRCXTX&psig=AOvVaw3wlgS9hi9gv6qps14nV4yz&ust=1737748451699000&source=images&cd=vfe&opi=89978449&ved=2ahUKEwiMk9PKz4yLAxXbrmMGHTzgLGoQjRx6BAgAEBc",
+    image: "https://cdn.pixabay.com/photo/2011/05/25/12/45/mint-7517_1280.jpg",
     description: "Known for soothing digestive issues and improving appetite.",
     medicinalUse: "Immunity",
     region: "Tropical",
@@ -59,6 +110,18 @@ const plants = [
       "Mint (Mentha) is a genus of plants in the Lamiaceae family. It includes varieties like peppermint and spearmint.",
     cultivationTips:
       "Mint grows best in moist, partially shaded environments and should be planted in containers to control its rapid spread.",
+    Kingdom: "Plantae",
+    Clade: "Angiosperms, Eudicots, Asterids",
+    Order: "Lamiales",
+    Family: "Lamiaceae",
+    Genus: "Mentha",
+    Species: "Varies",
+    BinomialName: "Mentha spp.",
+    About:
+      "Mint is a widely used aromatic herb known for its fresh, cool flavor and medicinal properties.",
+    DetailDescription:
+      "Mint plants have square stems, serrated leaves, and produce small white or purple flowers. They are used in culinary applications and for digestive health.",
+    Reference: "https://en.wikipedia.org/wiki/Mentha",
   },
   {
     id: 6,
@@ -71,6 +134,18 @@ const plants = [
       "Turmeric (Curcuma longa) is a flowering plant from the ginger family. It is native to Southeast Asia.",
     cultivationTips:
       "Turmeric thrives in warm, humid climates with well-drained, fertile soil. It requires regular watering, but the soil should not remain waterlogged.",
+    Kingdom: "Plantae",
+    Clade: "Angiosperms, Monocots",
+    Order: "Zingiberales",
+    Family: "Zingiberaceae",
+    Genus: "Curcuma",
+    Species: "C. longa",
+    BinomialName: "Curcuma longa",
+    About:
+      "Turmeric is a flowering plant whose rhizomes are widely used as a spice and for medicinal purposes.",
+    DetailDescription:
+      "Turmeric plants have large, broad leaves and produce bright yellow-orange rhizomes known for their anti-inflammatory and antioxidant properties.",
+    Reference: "https://en.wikipedia.org/wiki/Turmeric",
   },
   {
     id: 7,
@@ -83,6 +158,18 @@ const plants = [
       "Lavender (Lavandula) is a genus of flowering plants in the mint family, known for its fragrant flowers.",
     cultivationTips:
       "Lavender needs full sun and well-drained, slightly alkaline soil. It should be watered moderately and can tolerate drought.",
+    Kingdom: "Plantae",
+    Clade: "Angiosperms, Eudicots, Asterids",
+    Order: "Lamiales",
+    Family: "Lamiaceae",
+    Genus: "Lavandula",
+    Species: "Varies",
+    BinomialName: "Lavandula spp.",
+    About:
+      "Lavender is a fragrant flowering plant widely used for aromatherapy, skincare, and medicinal purposes.",
+    DetailDescription:
+      "Lavender has narrow, grey-green leaves and spikes of purple flowers. It is used for relaxation, stress relief, and antiseptic properties.",
+    Reference: "https://en.wikipedia.org/wiki/Lavender",
   },
   {
     id: 8,
@@ -245,6 +332,19 @@ const plants = [
       "Cardamom (Elettaria cardamomum) is a spice plant native to the Indian subcontinent, known for its aromatic seeds.",
     cultivationTips:
       "Cardamom grows best in humid, tropical climates with rich, well-drained soil and partial shade.",
+    name: "Cardamom",
+    Kingdom: "Plantae",
+    Clade: "Angiosperms, Monocots",
+    Order: "Zingiberales",
+    Family: "Zingiberaceae",
+    Genus: "Elettaria",
+    Species: "E. cardamomum",
+    BinomialName: "Elettaria cardamomum",
+    About:
+      "Elettaria cardamomum, commonly known as green cardamom, is a perennial herb native to southern India. It is cultivated for its aromatic seeds, which are used as a spice and in traditional medicine.",
+    DetailDescription:
+      "Cardamom is a perennial herbaceous plant that can grow up to 4 meters tall. It has long, lance-shaped leaves and produces small, white to pale violet flowers followed by green pods containing aromatic seeds. Cardamom is used in culinary dishes and herbal remedies for digestion and respiratory health.",
+    Reference: "https://en.wikipedia.org/wiki/Cardamom",
   },
 ]
 
