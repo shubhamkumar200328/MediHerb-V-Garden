@@ -25,9 +25,9 @@ const Header = () => {
           <li>
             <Link to="/add-plant">Add new plant</Link>
           </li>
-          <li>
+          {/* <li>
             <Link to="/3D-view-info-video">3D-V-V</Link>
-          </li>
+          </li> */}
         </ul>
       </nav>
     </header>

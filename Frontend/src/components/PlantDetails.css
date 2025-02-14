@@ -202,3 +202,25 @@ body {
 .popup button:hover {
   background-color: #2f5e43;
 }
+
+.accordion-container {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.accordion-item {
+  border-bottom: 1px solid #ddd;
+}
+
+.accordion-title {
+  background: #f8f8f8;
+  padding: 10px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.accordion-content {
+  padding: 10px;
+  background: #fff;
+}

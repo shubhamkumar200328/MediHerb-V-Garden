@@ -3,12 +3,19 @@ import cors from "cors"
 import plants from "./data/plants.js"
 import path from "path"
 import fs from "fs"
+import authRoutes from "./routes/auth.js"
+import forumRoutes from "./routes/forum.js"
+import gamificationRoutes from "./routes/gamification.js"
 
 // Get the directory name from import.meta.url
 const __dirname = path.dirname(new URL(import.meta.url).pathname)
 
 const app = express()
-const PORT = 5010
+const PORT = 5015
+
+app.use("/auth", authRoutes)
+app.use("/forum", forumRoutes)
+app.use("/gamification", gamificationRoutes)
 
 // Middleware
 app.use(

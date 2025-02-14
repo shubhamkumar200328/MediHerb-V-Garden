@@ -8,6 +8,11 @@ import Explore from "../pages/Explore"
 import PlantDetails from "../pages/PlantDetails"
 import AddPlant from "../components/AddPlant"
 import ThreedViewVideo from "../pages/ThreedViewVideo"
+import Achievements from "../pages/Achievements"
+import Forum from "../pages/Forum"
+import Login from "../pages/Login"
+import Profile from "../pages/Profile"
+import Register from "../pages/Register"
 
 const AppRouter = () => {
   return (
@@ -22,6 +27,11 @@ const AppRouter = () => {
           <Route path="/plant/:id" element={<PlantDetails />} />
           <Route path="/add-plant" element={<AddPlant />} />
           <Route path="/3D-view-info-video" element={<ThreedViewVideo />} />
+          <Route path="/achievements" element={<Achievements />} />
+          <Route path="/forum" element={<Forum />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/register" element={<Register />} />
         </Routes>
       </main>
       {/* <Footer /> */}

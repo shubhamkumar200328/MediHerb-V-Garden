@@ -1,5 +1,7 @@
 import React from "react"
 import Header from "../components/Header"
+import { Link } from "react-router-dom"
+import "../components/Home.css"
 
 const Home = () => {
   return (
@@ -7,7 +9,7 @@ const Home = () => {
       <Header />
       <div className="home-container">
         {/* Hero Section bg-[#589c7b] */}
-        <div className="hero-section bg-[#589c7b] text-[#101820FF] mt-7 py-12 px-4 text-center">
+        <div className="hero-section bg-[#aaddc5] text-[#101820FF] mt-9 py-11 px-4 text-center">
           <h1 className="text-4xl font-bold mb-4">
             Welcome to MediHerb V Garden
           </h1>
@@ -16,9 +18,20 @@ const Home = () => {
             immersive virtual herbal garden. Explore plants used in Ayurveda,
             Yoga & Naturopathy, Unani, Siddha, and Homeopathy (AYUSH).
           </p>
-          <button className="btn-primary px-6 py-3 rounded-md text-white font-semibold">
-            Explore Now
-          </button>
+          <div>
+            <Link
+              to="/plant-details"
+              classname="button-85 text-3xl text-white"
+              role="button"
+            >
+              Explore
+            </Link>
+          </div>
+          {/* <div classname="btn-2">
+            <a href="">
+              <span>Hover over me</span>
+            </a>
+          </div> */}
         </div>
 
         {/* Overview Section */}
@@ -61,7 +74,7 @@ const Home = () => {
         </div>
 
         {/* Call-to-Action Section */}
-        <div className="cta-section bg-[#3e3e42] text-[#006B38FF] py-12 px-6 text-center">
+        <div className="cta-section bg-[#3e3e42] text-[#aaddc5] py-12 px-6 text-center">
           <h2 className="text-3xl font-bold mb-4 text-white">Join Us Today</h2>
           <p className="text-lg mb-6">
             Experience the wonders of nature with MediHerb V Garden. Start your

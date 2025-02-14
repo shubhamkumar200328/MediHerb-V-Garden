@@ -19,10 +19,76 @@ const plants = [
     Species: "O. sanctum",
     BinomialName: "Ocimum sanctum",
     About:
-      "Ocimum sanctum, commonly known as tulsi or holy basil, is an aromatic perennial plant native to the Indian subcontinent. It is widely used in traditional medicine and religious rituals.",
+      "Ocimum sanctum, commonly known as tulsi or holy basil, is an aromatic perennial plant native to the Indian subcontinent.",
     DetailDescription:
       "Tulsi is a small, bushy shrub with green or purple leaves, serrated margins, and hairy stems. It produces small purple or white flowers and has a strong aroma. The plant has significant medicinal properties, including anti-inflammatory, antimicrobial, and adaptogenic effects.",
     Reference: "https://en.wikipedia.org/wiki/Ocimum_tenuiflorum",
+
+    learningModules: [
+      {
+        title: "History of Tulsi",
+        content:
+          "Tulsi has been revered in Indian culture for thousands of years. It is considered a sacred plant in Hinduism and is used in various religious ceremonies.",
+        resources: [
+          {
+            type: "Article",
+            url: "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4296439/",
+          },
+          {
+            type: "Video",
+            url: "https://www.youtube.com/watch?v=example1",
+          },
+        ],
+      },
+      {
+        title: "Medicinal Uses of Tulsi",
+        content:
+          "Tulsi is widely used in Ayurveda to treat respiratory disorders, boost immunity, and reduce stress.",
+        resources: [
+          {
+            type: "Research Paper",
+            url: "https://pubmed.ncbi.nlm.nih.gov/123456/",
+          },
+          {
+            type: "Video",
+            url: "https://www.youtube.com/watch?v=example2",
+          },
+        ],
+      },
+      {
+        title: "Scientific Research on Tulsi",
+        content:
+          "Studies indicate that Tulsi possesses antibacterial, antiviral, and adaptogenic properties.",
+        resources: [
+          {
+            type: "Journal",
+            url: "https://www.sciencedirect.com/science/article/pii/S1234567890",
+          },
+        ],
+      },
+      {
+        title: "Cultivation Techniques",
+        content:
+          "Tulsi grows best in warm climates with well-drained soil and requires regular watering.",
+        resources: [
+          {
+            type: "E-Book",
+            url: "https://www.agricultureguide.com/tulsi-cultivation",
+          },
+        ],
+      },
+      {
+        title: "Processing and Usage",
+        content:
+          "Tulsi can be used in teas, oils, and herbal remedies. Learn about different methods of processing.",
+        resources: [
+          {
+            type: "Tutorial",
+            url: "https://www.youtube.com/watch?v=example3",
+          },
+        ],
+      },
+    ],
   },
   {
     id: 2,
