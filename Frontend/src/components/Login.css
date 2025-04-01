@@ -1,0 +1,67 @@
+/* Center the login form */
+.login-container {
+  width: 100%;
+  max-width: 400px;
+  margin: 50px auto;
+  padding: 20px;
+  background: #ffffff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  text-align: center;
+  transition: transform 0.2s ease-in-out;
+}
+
+/* Add a hover effect */
+.login-container:hover {
+  transform: scale(1.02);
+}
+
+/* Style the heading */
+.login-container h2 {
+  margin-bottom: 15px;
+  font-size: 24px;
+  color: #333;
+  font-weight: bold;
+}
+
+/* Style the form inputs */
+.login-form input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  display: block;
+}
+
+/* Add focus effect */
+.login-form input:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+/* Style the error message */
+.error-message {
+  color: red;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+/* Style the submit button */
+.login-form button {
+  width: 100%;
+  padding: 10px;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+/* Add hover effect */
+.login-form button:hover {
+  background: #0056b3;
+}

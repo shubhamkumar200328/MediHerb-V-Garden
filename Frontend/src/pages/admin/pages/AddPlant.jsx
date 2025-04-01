@@ -1,6 +1,6 @@
 import React, { useState } from "react"
-import "./AddPlant.css"
-import Header from "./Header"
+import "../../../components/AddPlant.css"
+import Header from "../../../components/Header"
 
 const AddPlant = () => {
   const [name, setName] = useState("")

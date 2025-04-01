@@ -1,113 +1,60 @@
-import express, { json } from "express"
+import express from "express"
 import cors from "cors"
-import plants from "./data/plants.js"
+import dotenv from "dotenv"
 import path from "path"
-import fs from "fs"
+// import fs from "fs"
+
+import connectDB from "./config/db.js"
 import authRoutes from "./routes/auth.js"
 import forumRoutes from "./routes/forum.js"
 import gamificationRoutes from "./routes/gamification.js"
+import plantRoutes from "./routes/plantRoutes.js" // Plants API routes
+import protectedRoutes from "./routes/protected.js"
+import { protect } from "./middleware/authMiddleware.js"
 
-// Get the directory name from import.meta.url
-const __dirname = path.dirname(new URL(import.meta.url).pathname)
+dotenv.config()
+connectDB()
 
 const app = express()
-const PORT = 5015
+const PORT = process.env.PORT || 5015
+const __dirname = path.resolve()
 
+// Middleware
+app.use(cors({ origin: "*" }))
+app.use(express.json())
+
+// Routes
 app.use("/auth", authRoutes)
 app.use("/forum", forumRoutes)
 app.use("/gamification", gamificationRoutes)
+app.use("/api/plants", plantRoutes) // Plants API
+app.use("/api/protected", protectedRoutes)
 
-// Middleware
-app.use(
-  cors({
-    origin: "*", // Or specify your frontend URL (e.g., 'http://localhost:3000')
-  })
-)
-app.use(json())
-
-// Serve static files from the "public" directory
-app.use("/images", express.static(path.join(__dirname, "public/images")))
-
-// Serve the plants.js file as a static file
-app.get("/data/plants.js", (req, res) => {
-  const filePath = path.resolve(__dirname, "data", "plants.js") // Absolute path using path.resolve
-  res.sendFile(filePath, (err) => {
-    if (err) {
-      console.error("Error sending file:", err)
-      res.status(500).send("Unable to send plants.js file.")
-    }
-  })
-})
-
-// Routes
+// Root route
 app.get("/", (req, res) => {
-  res.send("server is ready.")
+  res.send("🚀 Server is running.")
 })
 
-app.get("/api/plants", (req, res) => {
-  res.json(plants)
+app.use("/auth/profile", protect, (req, res) => {
+  res.json({ message: "Authenticated user", user: req.user })
 })
 
-// Add this new route for adding a plant
-app.post("/api/plants", (req, res) => {
-  const newPlant = req.body
-
-  // Log the received data to see what's coming from the frontend
-  console.log("Received new plant data:", newPlant)
-
-  // Check if all required fields are present
-  if (
-    !newPlant.name ||
-    !newPlant.image ||
-    !newPlant.description ||
-    !newPlant.medicinalUse ||
-    !newPlant.region ||
-    !newPlant.botanicalDetails ||
-    !newPlant.cultivationTips
-  ) {
-    console.error("Missing required fields!")
-    return res.status(400).json({ error: "All fields are required." })
-  }
-
-  // Log before pushing the new plant
-  console.log("Adding new plant to the array...")
-  plants.push(newPlant)
-
-  // Log before attempting to write to the file
-  const filePath = path.resolve(__dirname, "data", "plants.js") // Absolute path
-  const dataToWrite = `const plants = ${JSON.stringify(
-    plants,
-    null,
-    2
-  )};\n\nexport default plants;`
-
-  console.log("Writing to plants.js file...")
-
-  // Attempt to write to plants.js
-  fs.writeFile(filePath, dataToWrite, (err) => {
-    if (err) {
-      console.error("Error saving to file:", err)
-      return res.status(500).json({ error: "Failed to save data." })
-    }
-
-    // Log success and respond with the new plant
-    console.log("New plant added successfully:", newPlant)
-    res.status(201).json(newPlant)
-  })
-})
-
-app.get("/api/plants/:id", (req, res) => {
-  const plantId = parseInt(req.params.id, 10)
-  const plant = plants.find((p) => p.id === plantId)
-
-  if (!plant) {
-    return res.status(404).json({ error: "Plant not found" })
-  }
-
-  res.json(plant)
-})
+// Serve static files (Images)
+app.use("/images", express.static(path.join(__dirname, "public/images")))
 
 // Start server
 app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`)
+  console.log(`🚀 Server running on http://localhost:${PORT}`)
 })
+
+// Protect "Add Plant" API
+// app.post("/api/plants", authMiddleware, async (req, res) => {
+//   try {
+//     const newPlant = new Plant(req.body)
+//     const savedPlant = await newPlant.save()
+//     res.status(201).json(savedPlant)
+//   } catch (error) {
+//     console.error("❌ Error adding plant:", error)
+//     res.status(500).json({ message: "Failed to add plant", error })
+//   }
+// })

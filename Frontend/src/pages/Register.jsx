@@ -1,52 +1,87 @@
-import React, { useState } from "react"
-import axios from "axios"
-import { useNavigate } from "react-router-dom"
+import { useState, useContext } from "react"
+import { AuthContext } from "../context/authContext.jsx"
+import "../components/Register.css" // Import CSS file
 
 const Register = () => {
+  const { register } = useContext(AuthContext)
   const [username, setUsername] = useState("")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
-  const navigate = useNavigate()
+  const [error, setError] = useState("")
+  const [loading, setLoading] = useState(false)
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    setLoading(true)
+    setError("")
+
     try {
-      await axios.post("http://localhost:5010/auth/register", {
+      console.log("Starting registration process...")
+      const userData = {
         username,
         email,
         password,
-      })
-      navigate("/login")
-    } catch (error) {
-      console.error("Registration failed:", error)
+        role: "user", // This matches the User model's default role
+      }
+      console.log("Registration data:", { ...userData, password: "***" })
+
+      const response = await register(userData)
+      console.log("Registration successful:", response)
+
+      // Show success message before redirect
+      setError("Registration successful! Redirecting to login...")
+      setTimeout(() => {
+        window.location.href = "/login"
+      }, 1500)
+    } catch (err) {
+      console.error("Registration error in component:", err)
+      setError(err.message || "Registration failed. Please try again.")
+    } finally {
+      setLoading(false)
     }
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        type="text"
-        placeholder="Username"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-        required
-      />
-      <input
-        type="email"
-        placeholder="Email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        required
-      />
-      <input
-        type="password"
-        placeholder="Password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        required
-      />
-      <button type="submit">Register</button>
-    </form>
+    <div className="register-container">
+      <h2>Register</h2>
+      {error && (
+        <p
+          className={`message ${
+            error.includes("successful") ? "success-message" : "error-message"
+          }`}
+        >
+          {error}
+        </p>
+      )}
+      <form onSubmit={handleSubmit} className="register-form">
+        <input
+          type="text"
+          placeholder="Username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          required
+          minLength="3"
+        />
+        <input
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+        />
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+          minLength="6"
+        />
+        <button type="submit" disabled={loading}>
+          {loading ? "Registering..." : "Register"}
+        </button>
+      </form>
+    </div>
   )
 }
 

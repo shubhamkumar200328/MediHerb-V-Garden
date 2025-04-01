@@ -6,12 +6,14 @@ import About from "../pages/About"
 import Contact from "../pages/Contact"
 import Explore from "../pages/Explore"
 import PlantDetails from "../pages/PlantDetails"
-import AddPlant from "../components/AddPlant"
 import ThreedViewVideo from "../pages/ThreedViewVideo"
 import Achievements from "../pages/Achievements"
 import Forum from "../pages/Forum"
-import Login from "../pages/Login"
-import Profile from "../pages/Profile"
+import AdminPage from "../pages/admin/pages/AdminPage"
+import AddPlant from "../pages/admin/pages/AddPlant"
+import AdminDashboard from "../pages/AdminDashboard"
+import UserProfile from "../pages/UserProfile"
+import Login from "../pages/LogIn"
 import Register from "../pages/Register"
 
 const AppRouter = () => {
@@ -25,13 +27,15 @@ const AppRouter = () => {
           <Route path="/contact" element={<Contact />} />
           <Route path="/plant-details" element={<Explore />} />
           <Route path="/plant/:id" element={<PlantDetails />} />
+          <Route path="/admin-page" element={<AdminPage />} />
           <Route path="/add-plant" element={<AddPlant />} />
           <Route path="/3D-view-info-video" element={<ThreedViewVideo />} />
           <Route path="/achievements" element={<Achievements />} />
           <Route path="/forum" element={<Forum />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/profile" element={<Profile />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/userprofile" element={<UserProfile />} />
+          <Route path="/admindashboard" element={<AdminDashboard />} />
         </Routes>
       </main>
       {/* <Footer /> */}
