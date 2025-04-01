@@ -8,8 +8,9 @@ const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const token = localStorage.getItem("token")
-    if (token) {
-      setUser({ token })
+    const userRole = localStorage.getItem("userRole")
+    if (token && userRole) {
+      setUser({ token, role: userRole })
     }
   }, [])
 
@@ -39,17 +40,28 @@ const AuthProvider = ({ children }) => {
 
   const login = async (userData) => {
     try {
-      const { data } = await loginUser(userData)
-      localStorage.setItem("token", data.token)
-      setUser({ token: data.token })
-      return data
+      const response = await loginUser(userData)
+      const { token, user } = response.data
+      localStorage.setItem("token", token)
+      localStorage.setItem("userRole", user.role)
+      setUser({ token, role: user.role })
+      return response.data
     } catch (error) {
-      throw error.response.data
+      if (error.response) {
+        throw new Error(error.response.data.message || "Login failed")
+      } else if (error.request) {
+        throw new Error(
+          "No response from server. Please check your connection."
+        )
+      } else {
+        throw new Error("Error setting up the request")
+      }
     }
   }
 
   const logout = () => {
     localStorage.removeItem("token")
+    localStorage.removeItem("userRole")
     setUser(null)
   }
 

@@ -11,10 +11,12 @@ import Achievements from "../pages/Achievements"
 import Forum from "../pages/Forum"
 import AdminPage from "../pages/admin/pages/AdminPage"
 import AddPlant from "../pages/admin/pages/AddPlant"
-import AdminDashboard from "../pages/AdminDashboard"
 import UserProfile from "../pages/UserProfile"
 import Login from "../pages/LogIn"
 import Register from "../pages/Register"
+import Loginadmin from "../pages/Loginadmin"
+import Registeradmin from "../pages/registeradmin"
+import AdminDashboard from "../pages/admin/pages/AdminDashboard"
 
 const AppRouter = () => {
   return (
@@ -35,7 +37,9 @@ const AppRouter = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/userprofile" element={<UserProfile />} />
-          <Route path="/admindashboard" element={<AdminDashboard />} />
+          <Route path="/adminlogin" element={<Loginadmin />} />
+          <Route path="/adminregister" element={<Registeradmin />} />
+          <Route path="/admin/admindashboard" element={<AdminDashboard />} />
         </Routes>
       </main>
       {/* <Footer /> */}

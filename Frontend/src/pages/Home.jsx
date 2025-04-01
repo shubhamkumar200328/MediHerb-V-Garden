@@ -3,12 +3,12 @@ import Header from "../components/Header"
 import { Link } from "react-router-dom"
 import "../components/Home.css"
 import Slideshow2 from "../components/ImageSlideShowtwo"
-import Navbar from "../components/Navbar"
 
 const Home = () => {
   return (
     <>
       <Header />
+
       <div className="home-container">
         {/* Hero Section */}
         <section className="hero-section">
@@ -120,7 +120,6 @@ const Home = () => {
           <button className="cta-btn">Get Started</button>
         </section>
       </div>
-      <Navbar />
     </>
   )
 }

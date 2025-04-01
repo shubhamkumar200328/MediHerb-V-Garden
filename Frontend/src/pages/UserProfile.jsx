@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { getProfile } from "../services/api.js" // Import API function
 import "../components/UserProfile.css"
+import Header from "../components/Header.jsx"
 
 function UserProfile() {
   const [user, setUser] = useState(null)
@@ -35,29 +36,32 @@ function UserProfile() {
   }
 
   return (
-    <div className="profile-container">
-      <h2>User Profile</h2>
-      {user && (
-        <div className="profile-info">
-          <div className="profile-field">
-            <label>Username:</label>
-            <span>{user.username}</span>
+    <>
+      <Header />
+      <div className="profile-container">
+        <h2>User Profile</h2>
+        {user && (
+          <div className="profile-info">
+            <div className="profile-field">
+              <label>Username:</label>
+              <span>{user.username}</span>
+            </div>
+            <div className="profile-field">
+              <label>Email:</label>
+              <span>{user.email}</span>
+            </div>
+            <div className="profile-field">
+              <label>Role:</label>
+              <span>{user.role}</span>
+            </div>
+            <div className="profile-field">
+              <label>Member Since:</label>
+              <span>{new Date(user.createdAt).toLocaleDateString()}</span>
+            </div>
           </div>
-          <div className="profile-field">
-            <label>Email:</label>
-            <span>{user.email}</span>
-          </div>
-          <div className="profile-field">
-            <label>Role:</label>
-            <span>{user.role}</span>
-          </div>
-          <div className="profile-field">
-            <label>Member Since:</label>
-            <span>{new Date(user.createdAt).toLocaleDateString()}</span>
-          </div>
-        </div>
-      )}
-    </div>
+        )}
+      </div>
+    </>
   )
 }
 

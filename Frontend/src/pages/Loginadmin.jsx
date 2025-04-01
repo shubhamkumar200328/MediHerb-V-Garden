@@ -3,7 +3,7 @@ import { AuthContext } from "../context/authContext.jsx"
 import "../components/Login.css" // Import CSS file
 import Header from "../components/Header.jsx"
 
-const Login = () => {
+const Loginadmin = () => {
   const { login } = useContext(AuthContext)
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
@@ -17,20 +17,9 @@ const Login = () => {
 
     try {
       console.log("Attempting login...")
-      const response = await login({ email, password })
-      console.log("Login successful:", response)
-
-      // Store user role in localStorage
-      if (response.user && response.user.role) {
-        localStorage.setItem("userRole", response.user.role)
-      }
-
-      // Redirect based on role
-      if (response.user.role === "admin") {
-        window.location.href = "/admindashboard"
-      } else {
-        window.location.href = "/userprofile"
-      }
+      await login({ email, password })
+      console.log("Login successful")
+      window.location.href = "/admin/admindashboard" // Redirect to user profile after login
     } catch (err) {
       console.error("Login error:", err)
       setError(err.message || "Login failed. Please check your credentials.")
@@ -69,4 +58,4 @@ const Login = () => {
   )
 }
 
-export default Login
+export default Loginadmin

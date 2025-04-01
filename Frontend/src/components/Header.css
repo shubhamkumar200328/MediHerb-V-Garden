@@ -30,6 +30,7 @@
   display: flex;
   list-style: none;
   gap: 1.5rem;
+  align-items: center;
 }
 
 .nav-links li a {
@@ -44,15 +45,134 @@
   color: #a7f3d0; /* Light herbal green */
 }
 
+/* Auth Links */
+.auth-link {
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  background-color: #14532d;
+  color: #f0fdf4 !important;
+  transition: background-color 0.3s ease;
+}
+
+.auth-link:hover {
+  background-color: #1d3c1d;
+  color: #f0fdf4 !important;
+}
+
+/* Dropdown Styles */
+.dropdown-container {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-btn {
+  background: #14532d;
+  color: #f0fdf4;
+  border: none;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+}
+
+.dropdown-btn:hover,
+.dropdown-btn:focus {
+  background: #1d3c1d;
+  outline: none;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: calc(100% + 5px);
+  right: 0;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  min-width: 160px;
+  z-index: 1000;
+  opacity: 1;
+  visibility: visible;
+  transform-origin: top right;
+  animation: dropdownFadeIn 0.2s ease;
+}
+
+@keyframes dropdownFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.dropdown-item {
+  padding: 0.75rem 1rem;
+  color: #14532d;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+  transition: background-color 0.2s ease;
+  cursor: pointer;
+  white-space: nowrap;
+  border: none;
+  width: 100%;
+  background: none;
+  font-size: 1rem;
+}
+
+.dropdown-item:hover {
+  background: #f0fdf4;
+  color: #14532d;
+}
+
+.dropdown-item:active {
+  background: #e0f2e0;
+}
+
+.logout-btn {
+  border-top: 1px solid #eee;
+  margin-top: 0.25rem;
+  padding-top: 0.75rem;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .header-container {
     flex-direction: column;
     text-align: center;
+    padding: 1rem;
   }
 
   .nav-links {
     flex-direction: column;
     gap: 1rem;
+    width: 100%;
+    padding: 0;
+  }
+
+  .dropdown-container {
+    width: 100%;
+  }
+
+  .dropdown-btn {
+    width: 100%;
+    margin: 0.5rem 0;
+  }
+
+  .dropdown-menu {
+    position: static;
+    width: 100%;
+    box-shadow: none;
+    margin-top: 0.5rem;
+    animation: none;
+  }
+
+  .dropdown-item {
+    text-align: center;
   }
 }

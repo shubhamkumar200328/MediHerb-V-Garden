@@ -5,7 +5,7 @@ import React from "react"
 import { ToastContainer, toast } from "react-toastify"
 import Header from "../components/Header.jsx"
 
-const Register = () => {
+const Registeradmin = () => {
   const { register } = useContext(AuthContext)
   const [username, setUsername] = useState("")
   const [email, setEmail] = useState("")
@@ -98,4 +98,4 @@ const Register = () => {
   )
 }
 
-export default Register
+export default Registeradmin
