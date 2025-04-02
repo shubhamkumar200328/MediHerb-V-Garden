@@ -1,0 +1,116 @@
+/* Main Container */
+.dashboard-container {
+  padding: 20px;
+  background: #f8f9fa;
+  min-height: 100vh;
+}
+
+/* Title */
+.dashboard-title {
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+/* Stats Grid */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.stat-card {
+  background: white;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  border-radius: 8px;
+  box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.stat-card .icon {
+  font-size: 30px;
+  margin-right: 15px;
+}
+
+.green {
+  color: #28a745;
+}
+.blue {
+  color: #007bff;
+}
+.yellow {
+  color: #ffc107;
+}
+.purple {
+  color: #6f42c1;
+}
+
+.stat-info h3 {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.stat-info p {
+  font-size: 22px;
+  font-weight: bold;
+}
+
+/* Recent Activities */
+.recent-activities {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 30px;
+}
+
+.recent-activities h2 {
+  font-size: 20px;
+  margin-bottom: 15px;
+}
+
+.activity-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  background: #f1f1f1;
+  border-radius: 6px;
+  margin-bottom: 10px;
+}
+
+.user-name {
+  font-weight: bold;
+}
+
+.activity-action {
+  color: #555;
+}
+
+.activity-time {
+  font-size: 14px;
+  color: gray;
+}
+
+/* Quick Actions */
+.quick-actions {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 15px;
+}
+
+.quick-action {
+  background: #007bff;
+  color: white;
+  text-align: center;
+  padding: 10px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: 0.3s ease;
+}
+
+.quick-action:hover {
+  background: #0056b3;
+}

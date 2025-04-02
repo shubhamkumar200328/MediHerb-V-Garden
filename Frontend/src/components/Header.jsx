@@ -56,7 +56,7 @@ const Header = () => {
             <Link to="/plant-details">Explore</Link>
           </li>
           <li>
-            <Link to="/contact">Contact</Link>
+            <Link to="/admindashboard">AdminDashboard</Link>
           </li>
           {!user ? (
             <>

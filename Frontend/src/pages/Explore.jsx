@@ -1,100 +1,153 @@
 import React, { useState, useEffect } from "react"
-import { fetchPlants } from "../services/api.js"
+import axios from "axios"
 import "../components/Explore.css"
-import PlantCard from "../components/PlantCard.jsx"
 import Header from "../components/Header.jsx"
-
-// Custom hook for debouncing the search input
-const useDebounce = (value, delay) => {
-  const [debouncedValue, setDebouncedValue] = useState(value)
-
-  useEffect(() => {
-    const handler = setTimeout(() => {
-      setDebouncedValue(value)
-    }, delay)
-
-    return () => {
-      clearTimeout(handler)
-    }
-  }, [value, delay])
-
-  return debouncedValue
-}
 
 const Explore = () => {
   const [plants, setPlants] = useState([])
-  const [filters, setFilters] = useState({
-    name: "",
-    medicinalUse: "",
-    region: "",
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
+  const [searchTerm, setSearchTerm] = useState("")
+  const [selectedCategory, setSelectedCategory] = useState("all")
+
+  // Categories for filtering
+  const categories = ["all", "Immunity", "Skin Care"]
+
+  useEffect(() => {
+    fetchPlants()
+  }, [])
+
+  const fetchPlants = async () => {
+    try {
+      setLoading(true)
+      setError(null)
+      console.log("Fetching plants from API...")
+      const response = await axios.get("http://localhost:5015/api/plants")
+      console.log("Plants fetched successfully:", response.data)
+      setPlants(response.data)
+    } catch (err) {
+      console.error("Error fetching plants:", err)
+      setError(
+        err.response?.data?.message ||
+          err.message ||
+          "Failed to fetch plants. Please try again later."
+      )
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  // Filter plants based on search term and category
+  const filteredPlants = plants.filter((plant) => {
+    const matchesSearch =
+      plant.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      plant.description.toLowerCase().includes(searchTerm.toLowerCase())
+
+    const matchesCategory =
+      selectedCategory === "all" || plant.medicinalUse === selectedCategory
+
+    return matchesSearch && matchesCategory
   })
 
-  // Debounced value for the search filter
-  const debouncedName = useDebounce(filters.name, 500) // 500ms delay
+  const handlePlantClick = (plant) => {
+    // You can implement navigation to a detailed view here
+    console.log("Plant clicked:", plant)
+  }
 
-  // Fetch plants data whenever filters change
-  useEffect(() => {
-    const fetchData = async () => {
-      console.log("Current filters:", filters) // Log filters to check their values
-      try {
-        // If no filters are applied, fetch all plants
-        const response = await fetchPlants({ ...filters, name: debouncedName })
-        console.log("Fetched plants:", response.data) // Log the response
-        setPlants(response.data)
-      } catch (error) {
-        console.error("Error fetching plants:", error)
-      }
-    }
+  const handleRetry = () => {
+    fetchPlants()
+  }
 
-    // Trigger fetch only if the filters change
-    fetchData()
-  }, [filters, debouncedName])
+  if (loading) {
+    return (
+      <div className="explore-page">
+        <Header />
+        <div className="loading">
+          <div className="loading-spinner"></div>
+          <p>Loading plants...</p>
+        </div>
+      </div>
+    )
+  }
 
-  // Handle search input change
-  const handleSearch = (e) => {
-    setFilters({ ...filters, name: e.target.value })
+  if (error) {
+    return (
+      <div className="explore-page">
+        <Header />
+        <div className="error-container">
+          <p className="error-message">{error}</p>
+          <button onClick={handleRetry} className="retry-button">
+            Try Again
+          </button>
+        </div>
+      </div>
+    )
   }
 
   return (
-    <>
+    <div className="explore-page">
       <Header />
-      <div className="explore-page">
-        <h1>Explore Medicinal Plants</h1>
-        <div className="search-filter">
-          <input
-            type="text"
-            placeholder="Search plants by name..."
-            onChange={handleSearch}
-            value={filters.name} // Ensure the input value is updated with filters.name
-          />
-          <select
-            onChange={(e) =>
-              setFilters({ ...filters, medicinalUse: e.target.value })
-            }
-            value={filters.medicinalUse} // Sync the selected value with the state
-          >
-            <option value="">All Uses</option>
-            <option value="Immunity">Immunity</option>
-            <option value="Skin Care">Skin Care</option>
-          </select>
-          <select
-            onChange={(e) => setFilters({ ...filters, region: e.target.value })}
-            value={filters.region} // Sync the selected value with the state
-          >
-            <option value="">All Regions</option>
-            <option value="India">India</option>
-            <option value="Tropical">Tropical</option>
-          </select>
+      <div className="explore-container">
+        <div className="explore-header">
+          <h1>Explore Medicinal Plants</h1>
+          <div className="search-filter-container">
+            <input
+              type="text"
+              placeholder="Search plants..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="search-input"
+            />
+            <select
+              value={selectedCategory}
+              onChange={(e) => setSelectedCategory(e.target.value)}
+              className="category-select"
+            >
+              {categories.map((category) => (
+                <option key={category} value={category}>
+                  {category.charAt(0).toUpperCase() + category.slice(1)}
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
-        <div className="plant-grid">
-          {plants.length > 0 ? (
-            plants.map((plant) => <PlantCard key={plant.id} plant={plant} />)
-          ) : (
-            <p>No plants found based on the selected filters.</p>
-          )}
+
+        <div className="plants-grid">
+          {filteredPlants.map((plant) => (
+            <div
+              key={plant._id}
+              className="plant-card"
+              onClick={() => handlePlantClick(plant)}
+            >
+              <div className="plant-image-container">
+                <img
+                  src={plant.image}
+                  alt={plant.name}
+                  className="plant-image"
+                  onError={(e) => {
+                    e.target.src = "/placeholder-plant.jpg"
+                  }}
+                />
+              </div>
+              <div className="plant-info">
+                <h3>{plant.name}</h3>
+                <p className="plant-description">{plant.description}</p>
+                <div className="plant-tags">
+                  <span className="medicinal-use">{plant.medicinalUse}</span>
+                  <span className="region">{plant.region}</span>
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
+
+        {filteredPlants.length === 0 && (
+          <div className="no-results">
+            No plants found matching your search criteria.
+          </div>
+        )}
       </div>
-    </>
+    </div>
   )
 }
 

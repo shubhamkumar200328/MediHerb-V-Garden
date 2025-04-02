@@ -1,95 +1,182 @@
-/* Explore.css */
-
+/* Explore Page Styling */
 .explore-page {
   font-family: Arial, sans-serif;
-  margin: 20px;
+  background-color: #f9f9f9;
+  min-height: 100vh;
+  text-align: center;
 }
 
-.explore-page h1 {
-  font-size: 2.5rem;
-  color: #2c3e50;
-  text-align: center;
+/* Page Header */
+.explore-header {
   margin-bottom: 20px;
 }
 
-.search-filter {
+.explore-header h1 {
+  font-size: 2rem;
+  color: #2c3e50;
+  margin-bottom: 20px;
+}
+
+/* Search & Filter Section */
+.search-filter-container {
   display: flex;
   justify-content: center;
-  gap: 20px;
+  align-items: center;
+  gap: 15px;
   margin-bottom: 20px;
 }
 
-.search-filter input,
-.search-filter select {
+.search-input,
+.category-select {
   padding: 10px;
+  width: 250px;
   border: 1px solid #ccc;
   border-radius: 4px;
   font-size: 1rem;
+  text-align: left;
 }
 
-.search-filter input {
-  width: 250px;
-}
-
-.search-filter select {
-  width: 180px;
-}
-
-.search-filter select option {
-  font-size: 1rem;
-}
-
-.plant-grid {
+/* Plant Grid */
+.plants-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 20px;
   padding: 20px;
+  justify-content: center;
 }
 
+/* Individual Plant Card */
 .plant-card {
   background-color: #fff;
   border: 1px solid #ddd;
   border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  padding: 20px;
-  transition: transform 0.3s ease-in-out;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
 }
 
 .plant-card:hover {
-  transform: scale(1.05);
+  transform: scale(1.03);
 }
 
-.plant-card img {
+/* Plant Image */
+.plant-image-container {
   width: 100%;
-  height: auto;
-  border-radius: 8px;
+  height: 180px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.plant-card h3 {
-  font-size: 1.5rem;
+.plant-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Plant Info Section */
+.plant-info {
+  padding: 15px;
+}
+
+.plant-info h3 {
+  font-size: 1.3rem;
   color: #34495e;
-  margin: 10px 0;
+  margin-bottom: 8px;
+  text-align: center;
 }
 
-.plant-card p {
-  color: #7f8c8d;
+.plant-description {
   font-size: 1rem;
+  color: #7f8c8d;
   line-height: 1.5;
+  text-align: justify;
+  height: 60px;
+  overflow: hidden;
 }
 
+/* Plant Tags */
+.plant-tags {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 10px;
+  flex-wrap: wrap;
+}
+
+.medicinal-use,
+.region {
+  background-color: #2ecc71;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 0.9rem;
+}
+
+.region {
+  background-color: #3498db;
+}
+
+/* Loading & Error Handling */
+.loading,
+.error-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 50vh;
+}
+
+.loading p {
+  font-size: 1.2rem;
+  color: #555;
+}
+
+/* Error Message */
+.error-message {
+  color: red;
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+
+.retry-button {
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background 0.3s;
+}
+
+.retry-button:hover {
+  background-color: #c0392b;
+}
+
+/* No Results Found */
+.no-results {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #7f8c8d;
+  margin-top: 20px;
+}
+
+/* Responsive Adjustments */
 @media (max-width: 768px) {
-  .search-filter {
+  .search-filter-container {
     flex-direction: column;
     align-items: center;
   }
 
-  .search-filter input,
-  .search-filter select {
+  .search-input,
+  .category-select {
     width: 100%;
-    margin-bottom: 10px;
   }
 
-  .plant-grid {
+  .plants-grid {
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   }
 }

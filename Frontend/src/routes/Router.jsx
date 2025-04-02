@@ -1,6 +1,11 @@
 import React from "react"
 // import "../App.css"
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom" // Updated import for Routes
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom" // Updated import for Routes
 import Home from "../pages/Home"
 import About from "../pages/About"
 import Contact from "../pages/Contact"
@@ -39,7 +44,11 @@ const AppRouter = () => {
           <Route path="/userprofile" element={<UserProfile />} />
           <Route path="/adminlogin" element={<Loginadmin />} />
           <Route path="/adminregister" element={<Registeradmin />} />
-          <Route path="/admin/admindashboard" element={<AdminDashboard />} />
+          <Route path="/admin/admindashboard/*" element={<AdminDashboard />} />
+          <Route
+            path="/admindashboard"
+            element={<Navigate to="/admin/admindashboard" replace />}
+          />
         </Routes>
       </main>
       {/* <Footer /> */}

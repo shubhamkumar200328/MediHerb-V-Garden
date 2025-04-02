@@ -1,0 +1,50 @@
+.admin-dashboard {
+  padding: 20px;
+  text-align: center;
+}
+
+.add-plant {
+  margin-bottom: 20px;
+}
+
+.add-plant input,
+.add-plant textarea {
+  display: block;
+  width: 300px;
+  margin: 10px auto;
+  padding: 8px;
+}
+
+.add-plant button {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.plant-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.plant-card {
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: center;
+}
+
+.plant-card img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+}
+
+.plant-card button {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 8px;
+  cursor: pointer;
+}
