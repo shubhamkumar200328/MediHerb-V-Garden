@@ -20,7 +20,7 @@ import UserProfile from "../pages/UserProfile"
 import Login from "../pages/LogIn"
 import Register from "../pages/Register"
 import Loginadmin from "../pages/Loginadmin"
-import Registeradmin from "../pages/registeradmin"
+import Registeradmin from "../pages/Registeradmin"
 import AdminDashboard from "../pages/admin/pages/AdminDashboard"
 
 const AppRouter = () => {
@@ -43,7 +43,7 @@ const AppRouter = () => {
           <Route path="/register" element={<Register />} />
           <Route path="/userprofile" element={<UserProfile />} />
           <Route path="/adminlogin" element={<Loginadmin />} />
-          <Route path="/adminregister" element={<Registeradmin />} />
+          <Route path="/registeradmin" element={<Registeradmin />} />
           <Route path="/admin/admindashboard/*" element={<AdminDashboard />} />
           <Route
             path="/admindashboard"

@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react"
 import axios from "axios"
+import { useNavigate } from "react-router-dom"
 import "./UserManagement.css"
 
 const UserManagement = () => {
+  const navigate = useNavigate()
   const [users, setUsers] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
@@ -10,6 +12,7 @@ const UserManagement = () => {
   const [editingUser, setEditingUser] = useState(null)
   const [formData, setFormData] = useState({
     name: "",
+    username: "", // 🔥 add this
     email: "",
     password: "",
     role: "user",
@@ -18,11 +21,20 @@ const UserManagement = () => {
     profileImage: "",
   })
 
-  // Get token from localStorage
-  const token = localStorage.getItem("token")
+  useEffect(() => {
+    const storedToken = localStorage.getItem("token")
+    const storedRole = localStorage.getItem("userRole")
 
-  // Configure axios defaults
-  axios.defaults.headers.common["Authorization"] = `Bearer ${token}`
+    console.log("Checking token/role:", storedToken, storedRole)
+
+    if (!storedToken || storedRole !== "admin") {
+      navigate("/login")
+      return
+    }
+
+    axios.defaults.headers.common["Authorization"] = `Bearer ${storedToken}`
+    fetchUsers()
+  }, [navigate])
 
   const fetchUsers = async () => {
     try {
@@ -32,22 +44,21 @@ const UserManagement = () => {
       setError(null)
     } catch (err) {
       console.error("Error fetching users:", err)
-      setError(err.response?.data?.message || "Failed to fetch users")
+      if (err.response?.status === 401) {
+        localStorage.removeItem("token")
+        localStorage.removeItem("userRole")
+        navigate("/login")
+      } else {
+        setError(err.response?.data?.message || "Failed to fetch users")
+      }
     } finally {
       setLoading(false)
     }
   }
 
-  useEffect(() => {
-    fetchUsers()
-  }, [])
-
   const handleInputChange = (e) => {
     const { name, value } = e.target
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }))
+    setFormData((prev) => ({ ...prev, [name]: value }))
   }
 
   const handleSubmit = async (e) => {
@@ -65,6 +76,7 @@ const UserManagement = () => {
       }
       setFormData({
         name: "",
+        username: "", // 🔥 add this
         email: "",
         password: "",
         role: "user",
@@ -76,7 +88,13 @@ const UserManagement = () => {
       fetchUsers()
     } catch (err) {
       console.error("Error saving user:", err)
-      setError(err.response?.data?.message || "Failed to save user")
+      if (err.response?.status === 401) {
+        localStorage.removeItem("token")
+        localStorage.removeItem("userRole")
+        navigate("/login")
+      } else {
+        setError(err.response?.data?.message || "Failed to save user")
+      }
     }
   }
 
@@ -84,8 +102,9 @@ const UserManagement = () => {
     setEditingUser(user)
     setFormData({
       name: user.name,
+      username: user.username || "", // 🔥 add this
       email: user.email,
-      password: "", // Don't show password when editing
+      password: "",
       role: user.role,
       phone: user.phone || "",
       address: user.address || "",
@@ -101,7 +120,13 @@ const UserManagement = () => {
         fetchUsers()
       } catch (err) {
         console.error("Error deleting user:", err)
-        setError(err.response?.data?.message || "Failed to delete user")
+        if (err.response?.status === 401) {
+          localStorage.removeItem("token")
+          localStorage.removeItem("userRole")
+          navigate("/login")
+        } else {
+          setError(err.response?.data?.message || "Failed to delete user")
+        }
       }
     }
   }
@@ -160,6 +185,16 @@ const UserManagement = () => {
                 type="text"
                 name="name"
                 value={formData.name}
+                onChange={handleInputChange}
+                required
+              />
+            </div>
+            <div className="form-group">
+              <label className="required">Username</label>
+              <input
+                type="text"
+                name="username"
+                value={formData.username}
                 onChange={handleInputChange}
                 required
               />

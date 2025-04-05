@@ -25,7 +25,15 @@ const AuthProvider = ({ children }) => {
       if (error.response) {
         // The request was made and the server responded with a status code
         // that falls out of the range of 2xx
-        throw new Error(error.response.data.message || "Registration failed")
+        const errorMessage =
+          error.response.data.message || "Registration failed"
+        const validationErrors = error.response.data.errors || []
+        console.error("Server response:", error.response.data)
+        throw new Error(
+          validationErrors.length > 0
+            ? validationErrors.join(", ")
+            : errorMessage
+        )
       } else if (error.request) {
         // The request was made but no response was received
         throw new Error(

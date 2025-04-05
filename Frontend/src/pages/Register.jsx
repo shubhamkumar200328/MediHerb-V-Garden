@@ -7,6 +7,7 @@ import Header from "../components/Header.jsx"
 
 const Register = () => {
   const { register } = useContext(AuthContext)
+  const [name, setName] = useState("")
   const [username, setUsername] = useState("")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
@@ -22,6 +23,7 @@ const Register = () => {
     try {
       console.log("Starting registration process...")
       const userData = {
+        name,
         username,
         email,
         password,
@@ -62,6 +64,14 @@ const Register = () => {
         <form onSubmit={handleSubmit} className="register-form">
           <input
             type="text"
+            placeholder="Full Name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
+            minLength="2"
+          />
+          <input
+            type="text"
             placeholder="Username"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
@@ -86,7 +96,7 @@ const Register = () => {
           <button
             type="submit"
             onClick={notify}
-            class="btnfos btnfos-3"
+            className="btnfos btnfos-3"
             disabled={loading}
           >
             {loading ? "Registering..." : "Register"}

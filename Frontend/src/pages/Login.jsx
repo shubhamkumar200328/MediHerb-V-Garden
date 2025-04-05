@@ -1,6 +1,7 @@
 import { useState, useContext } from "react"
 import { AuthContext } from "../context/authContext.jsx"
-import "../components/Login.css" // Import CSS file
+import { useNavigate } from "react-router-dom"
+import "../components/Login.css"
 import Header from "../components/Header.jsx"
 
 const Login = () => {
@@ -9,6 +10,7 @@ const Login = () => {
   const [password, setPassword] = useState("")
   const [error, setError] = useState("")
   const [loading, setLoading] = useState(false)
+  const navigate = useNavigate()
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -16,20 +18,22 @@ const Login = () => {
     setError("")
 
     try {
-      console.log("Attempting login...")
       const response = await login({ email, password })
-      console.log("Login successful:", response)
 
-      // Store user role in localStorage
-      if (response.user && response.user.role) {
+      // Store token and role in localStorage
+      if (response.token) {
+        localStorage.setItem("token", response.token)
+      }
+
+      if (response.user?.role) {
         localStorage.setItem("userRole", response.user.role)
       }
 
-      // Redirect based on role
+      // Navigate based on role
       if (response.user.role === "admin") {
-        window.location.href = "/admin/admindashboard"
+        navigate("/admin/admindashboard")
       } else {
-        window.location.href = "/userprofile"
+        navigate("/userprofile")
       }
     } catch (err) {
       console.error("Login error:", err)
@@ -64,6 +68,12 @@ const Login = () => {
             {loading ? "Logging in..." : "Login"}
           </button>
         </form>
+        {!localStorage.getItem("token") ||
+        localStorage.getItem("userRole") !== "admin" ? (
+          <p className="admin-register-link">
+            Not an admin yet? <a href="/registeradmin">Register as Admin</a>
+          </p>
+        ) : null}
       </div>
     </>
   )

@@ -7,6 +7,7 @@ import Header from "../components/Header.jsx"
 
 const Registeradmin = () => {
   const { register } = useContext(AuthContext)
+  const [name, setName] = useState("")
   const [username, setUsername] = useState("")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
@@ -22,10 +23,11 @@ const Registeradmin = () => {
     try {
       console.log("Starting registration process...")
       const userData = {
+        name,
         username,
         email,
         password,
-        role: "user", // This matches the User model's default role
+        role: "admin", // Set role to admin for admin registration
       }
       console.log("Registration data:", { ...userData, password: "***" })
 
@@ -49,7 +51,7 @@ const Registeradmin = () => {
     <>
       <Header />
       <div className="register-container">
-        <h2>Register</h2>
+        <h2>Admin Register</h2>
         {error && (
           <p
             className={`message ${
@@ -60,6 +62,14 @@ const Registeradmin = () => {
           </p>
         )}
         <form onSubmit={handleSubmit} className="register-form">
+          <input
+            type="text"
+            placeholder="Full Name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
+            minLength="2"
+          />
           <input
             type="text"
             placeholder="Username"
@@ -86,7 +96,7 @@ const Registeradmin = () => {
           <button
             type="submit"
             onClick={notify}
-            class="btnfos btnfos-3"
+            className="btnfos btnfos-3"
             disabled={loading}
           >
             {loading ? "Registering..." : "Register"}

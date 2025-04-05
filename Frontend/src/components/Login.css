@@ -65,3 +65,14 @@
 .login-form button:hover {
   background: #0056b3;
 }
+
+.admin-register-link {
+  margin-top: 10px;
+  text-align: center;
+  font-size: 14px;
+}
+.admin-register-link a {
+  color: #007bff;
+  text-decoration: underline;
+  cursor: pointer;
+}

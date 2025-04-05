@@ -28,6 +28,17 @@ function AdminDashboard() {
           <Route path="/modules" element={<LearningModules />} />
           <Route path="/analytics" element={<Analytics />} />
           <Route path="*" element={<Navigate to="/" replace />} />
+          <Route
+            path="/admin/usermanagement"
+            element={
+              localStorage.getItem("token") &&
+              localStorage.getItem("userRole") === "admin" ? (
+                <UserManagement />
+              ) : (
+                <Navigate to="/login" />
+              )
+            }
+          />
         </Routes>
       </div>
     </div>
