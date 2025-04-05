@@ -22,24 +22,40 @@ const isAdmin = async (req, res, next) => {
 // REGISTER USER
 router.post("/register", async (req, res) => {
   try {
-    const { username, email, password, role } = req.body
+    const { name, username, email, password, role } = req.body
 
-    // Check if user already exists
-    const existingUser = await User.findOne({ email })
-    if (existingUser) {
-      return res.status(400).json({ message: "User already exists" })
+    // Validate required fields
+    if (!name || !username || !email || !password) {
+      return res.status(400).json({
+        message: "All fields are required",
+        errors: [
+          !name && "Name is required",
+          !username && "Username is required",
+          !email && "Email is required",
+          !password && "Password is required",
+        ].filter(Boolean),
+      })
     }
 
-    // Hash password
-    const salt = await bcrypt.genSalt(10)
-    const hashedPassword = await bcrypt.hash(password, salt)
+    // Check if user already exists
+    const existingUser = await User.findOne({ $or: [{ email }, { username }] })
+    if (existingUser) {
+      return res.status(400).json({
+        message: "User already exists",
+        errors: [
+          existingUser.email === email && "Email already registered",
+          existingUser.username === username && "Username already taken",
+        ].filter(Boolean),
+      })
+    }
 
     // Create new user
     const user = new User({
+      name,
       username,
       email,
-      password: hashedPassword,
-      role: role || "user", // Default to "user" if no role specified
+      password,
+      role: role || "user",
     })
 
     await user.save()
@@ -55,6 +71,7 @@ router.post("/register", async (req, res) => {
       token,
       user: {
         id: user._id,
+        name: user.name,
         username: user.username,
         email: user.email,
         role: user.role,
@@ -62,9 +79,19 @@ router.post("/register", async (req, res) => {
     })
   } catch (error) {
     console.error("Registration error:", error)
-    res
-      .status(500)
-      .json({ message: "Registration failed", error: error.message })
+    if (error.name === "ValidationError") {
+      return res.status(400).json({
+        message: "Validation error",
+        errors: Object.values(error.errors).map((err) => err.message),
+      })
+    }
+    res.status(500).json({
+      message: "Registration failed",
+      error:
+        process.env.NODE_ENV === "development"
+          ? error.message
+          : "Internal server error",
+    })
   }
 })
 

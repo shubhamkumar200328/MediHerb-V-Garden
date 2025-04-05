@@ -1,87 +1,101 @@
 import Plant from "../models/Plant.js"
+import Activity from "../models/Activity.js" // 👈 Add this at the top
 
 // Get all plants
 export const getAllPlants = async (req, res) => {
   try {
-    console.log("Fetching all plants...")
-    const plants = await Plant.find().lean()
-    console.log(`Found ${plants.length} plants`)
+    const plants = await Plant.find()
     res.json(plants)
   } catch (error) {
-    console.error("Error in getAllPlants:", error)
-    res.status(500).json({
-      message: "Error fetching plants",
-      error: error.message,
-    })
+    res
+      .status(500)
+      .json({ message: "Error fetching plants", error: error.message })
   }
 }
 
-// Get plant by ID
+// Get single plant
 export const getPlantById = async (req, res) => {
   try {
-    const plant = await Plant.findById(req.params.id).lean()
+    const plant = await Plant.findById(req.params.id)
     if (!plant) {
       return res.status(404).json({ message: "Plant not found" })
     }
     res.json(plant)
   } catch (error) {
-    console.error("Error in getPlantById:", error)
-    res.status(500).json({
-      message: "Error fetching plant",
-      error: error.message,
-    })
+    res
+      .status(500)
+      .json({ message: "Error fetching plant", error: error.message })
   }
 }
 
-// Create new plant (admin only)
+// Create plant with activity logging
 export const createPlant = async (req, res) => {
   try {
     const plant = new Plant(req.body)
     await plant.save()
+
+    // Log activity
+    const activity = new Activity({
+      user: req.user?.name || "Admin",
+      action: `added a new plant - ${plant.name}`,
+    })
+    await activity.save()
+
     res.status(201).json(plant)
   } catch (error) {
-    console.error("Error in createPlant:", error)
-    res.status(400).json({
-      message: "Error creating plant",
-      error: error.message,
-    })
+    res
+      .status(400)
+      .json({ message: "Error creating plant", error: error.message })
   }
 }
 
-// Update plant (admin only)
+// Update plant
 export const updatePlant = async (req, res) => {
   try {
     const plant = await Plant.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
       runValidators: true,
     })
+
     if (!plant) {
       return res.status(404).json({ message: "Plant not found" })
     }
+
+    // Log the activity
+    const activity = new Activity({
+      user: req.user.name || "Admin",
+      action: `updated plant - ${plant.name}`,
+    })
+    await activity.save()
+
     res.json(plant)
   } catch (error) {
-    console.error("Error in updatePlant:", error)
-    res.status(400).json({
-      message: "Error updating plant",
-      error: error.message,
-    })
+    res
+      .status(400)
+      .json({ message: "Error updating plant", error: error.message })
   }
 }
 
-// Delete plant (admin only)
+// Delete plant
 export const deletePlant = async (req, res) => {
   try {
     const plant = await Plant.findByIdAndDelete(req.params.id)
     if (!plant) {
       return res.status(404).json({ message: "Plant not found" })
     }
+
+    // Log the activity
+    const activity = new Activity({
+      user: req.user.name || "Admin",
+      action: `deleted plant - ${plant.name}`,
+    })
+    await activity.save()
+
     res.json({ message: "Plant deleted successfully" })
   } catch (error) {
-    console.error("Error in deletePlant:", error)
-    res.status(500).json({
-      message: "Error deleting plant",
-      error: error.message,
-    })
+    res
+      .status(500)
+      .json({ message: "Error deleting plant", error: error.message })
   }
 }
 
@@ -94,35 +108,30 @@ export const searchPlants = async (req, res) => {
         { name: { $regex: query, $options: "i" } },
         { description: { $regex: query, $options: "i" } },
         { medicinalUse: { $regex: query, $options: "i" } },
-        { region: { $regex: query, $options: "i" } },
       ],
-    }).lean()
+    })
     res.json(plants)
   } catch (error) {
-    console.error("Error in searchPlants:", error)
-    res.status(500).json({
-      message: "Error searching plants",
-      error: error.message,
-    })
+    res
+      .status(500)
+      .json({ message: "Error searching plants", error: error.message })
   }
 }
 
-// Filter plants by category
+// Filter plants
 export const filterPlants = async (req, res) => {
   try {
-    const { medicinalUse, region } = req.query
+    const { region, medicinalUse } = req.query
     const filter = {}
 
-    if (medicinalUse) filter.medicinalUse = medicinalUse
     if (region) filter.region = region
+    if (medicinalUse) filter.medicinalUse = medicinalUse
 
-    const plants = await Plant.find(filter).lean()
+    const plants = await Plant.find(filter)
     res.json(plants)
   } catch (error) {
-    console.error("Error in filterPlants:", error)
-    res.status(500).json({
-      message: "Error filtering plants",
-      error: error.message,
-    })
+    res
+      .status(500)
+      .json({ message: "Error filtering plants", error: error.message })
   }
 }

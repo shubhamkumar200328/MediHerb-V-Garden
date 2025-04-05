@@ -1,28 +1,5 @@
 import mongoose from "mongoose"
 
-const learningModuleSchema = new mongoose.Schema({
-  title: {
-    type: String,
-    required: true,
-  },
-  content: {
-    type: String,
-    required: true,
-  },
-  resources: [
-    {
-      type: {
-        type: String,
-        required: true,
-      },
-      url: {
-        type: String,
-        required: true,
-      },
-    },
-  ],
-})
-
 const plantSchema = new mongoose.Schema(
   {
     name: {
@@ -46,54 +23,32 @@ const plantSchema = new mongoose.Schema(
       required: true,
     },
     botanicalDetails: {
-      type: String,
-      required: true,
+      kingdom: { type: String, required: true },
+      clade: { type: String, required: true },
+      order: { type: String, required: true },
+      family: { type: String, required: true },
+      genus: { type: String, required: true },
+      species: { type: String, required: true },
+      binomialName: { type: String, required: true },
     },
     cultivationTips: {
+      soil: { type: String, required: true },
+      water: { type: String, required: true },
+      sunlight: { type: String, required: true },
+      temperature: { type: String, required: true },
+    },
+    about: {
       type: String,
       required: true,
     },
-    Kingdom: {
+    detailDescription: {
       type: String,
       required: true,
     },
-    Clade: {
+    reference: {
       type: String,
       required: true,
     },
-    Order: {
-      type: String,
-      required: true,
-    },
-    Family: {
-      type: String,
-      required: true,
-    },
-    Genus: {
-      type: String,
-      required: true,
-    },
-    Species: {
-      type: String,
-      required: true,
-    },
-    BinomialName: {
-      type: String,
-      required: true,
-    },
-    About: {
-      type: String,
-      required: true,
-    },
-    DetailDescription: {
-      type: String,
-      required: true,
-    },
-    Reference: {
-      type: String,
-      required: true,
-    },
-    learningModules: [learningModuleSchema],
   },
   {
     timestamps: true,

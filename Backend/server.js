@@ -1,5 +1,4 @@
 import express from "express"
-import mongoose from "mongoose"
 import cors from "cors"
 import dotenv from "dotenv"
 import path from "path"
@@ -13,6 +12,9 @@ import gamificationRoutes from "./routes/gamification.js"
 import plantRoutes from "./routes/plantRoutes.js" // Plants API routes
 import protectedRoutes from "./routes/protected.js"
 import { protect } from "./middleware/authMiddleware.js"
+import userRoutes from "./routes/userRoutes.js"
+import learningModuleRoutes from "./routes/learningModuleRoutes.js"
+import activityRoutes from "./routes/activityRoutes.js" // 🔥 include `.js` in the path
 
 // Setup for ES modules
 const __filename = fileURLToPath(import.meta.url)
@@ -44,6 +46,12 @@ app.use("/forum", forumRoutes)
 app.use("/gamification", gamificationRoutes)
 app.use("/api/plants", plantRoutes) // Plants API
 app.use("/api/protected", protectedRoutes)
+app.use("/api/users", userRoutes)
+app.use("/api/learning-modules", learningModuleRoutes)
+app.use("/api/activities", activityRoutes)
+
+// other setup...
+app.use("/api/activities", activityRoutes)
 
 // Root route
 app.get("/", (req, res) => {
@@ -61,18 +69,6 @@ app.use("/images", express.static(path.join(__dirname, "public/images")))
 app.listen(PORT, () => {
   console.log(`🚀 Server running on http://localhost:${PORT}`)
 })
-
-// Protect "Add Plant" API
-// app.post("/api/plants", authMiddleware, async (req, res) => {
-//   try {
-//     const newPlant = new Plant(req.body)
-//     const savedPlant = await newPlant.save()
-//     res.status(201).json(savedPlant)
-//   } catch (error) {
-//     console.error("❌ Error adding plant:", error)
-//     res.status(500).json({ message: "Failed to add plant", error })
-//   }
-// })
 
 // Error handling middleware
 app.use((err, req, res, next) => {
