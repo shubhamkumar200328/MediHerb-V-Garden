@@ -2,6 +2,11 @@ import mongoose from "mongoose"
 
 const learningModuleSchema = new mongoose.Schema(
   {
+    plantId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Plant",
+      required: true, // Optional, based on your logic
+    },
     title: {
       type: String,
       required: [true, "Title is required"],
@@ -25,16 +30,16 @@ const learningModuleSchema = new mongoose.Schema(
       default: "beginner",
     },
     prerequisites: {
-      type: String,
-      default: "",
+      type: [String],
+      default: [],
     },
     objectives: {
-      type: String,
-      default: "",
+      type: [String],
+      default: [],
     },
     resources: {
-      type: String,
-      default: "",
+      type: [String],
+      default: [],
     },
     image: {
       type: String,
@@ -57,6 +62,12 @@ const learningModuleSchema = new mongoose.Schema(
       default: 0,
     },
     averageRating: {
+      type: Number,
+      default: 0,
+      min: 0,
+      max: 5,
+    },
+    ratingCount: {
       type: Number,
       default: 0,
     },
@@ -90,6 +101,9 @@ learningModuleSchema.index({
   description: "text",
   category: "text",
 })
+learningModuleSchema.index({ category: 1 })
+learningModuleSchema.index({ level: 1 })
+learningModuleSchema.index({ isPublished: 1 })
 
 const LearningModule = mongoose.model("LearningModule", learningModuleSchema)
 

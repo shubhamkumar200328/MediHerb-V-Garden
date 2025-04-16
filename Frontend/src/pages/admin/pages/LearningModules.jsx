@@ -9,6 +9,7 @@ const LearningModule = () => {
   const [success, setSuccess] = useState(null)
   const [editingModule, setEditingModule] = useState(null)
   const [formData, setFormData] = useState({
+    plantId: "",
     title: "",
     description: "",
     content: "",
@@ -60,17 +61,34 @@ const LearningModule = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+
+    // Convert comma-separated strings to arrays
+    const payload = {
+      ...formData,
+      prerequisites: formData.prerequisites
+        ? formData.prerequisites.split(",").map((s) => s.trim())
+        : [],
+      objectives: formData.objectives
+        ? formData.objectives.split(",").map((s) => s.trim())
+        : [],
+      resources: formData.resources
+        ? formData.resources.split(",").map((s) => s.trim())
+        : [],
+      tags: formData.tags ? formData.tags.split(",").map((s) => s.trim()) : [],
+    }
+
     try {
       if (editingModule) {
         await axios.put(
           `http://localhost:5015/api/learning-modules/${editingModule._id}`,
-          formData
+          payload
         )
         setSuccess("Module updated successfully!")
       } else {
-        await axios.post("http://localhost:5015/api/learning-modules", formData)
+        await axios.post("http://localhost:5015/api/learning-modules", payload)
         setSuccess("Module added successfully!")
       }
+
       setFormData({
         title: "",
         description: "",
@@ -95,6 +113,7 @@ const LearningModule = () => {
   const handleEdit = (module) => {
     setEditingModule(module)
     setFormData({
+      plantId: module.plantId || "",
       title: module.title,
       description: module.description,
       content: module.content,
@@ -183,6 +202,17 @@ const LearningModule = () => {
           <h3>{editingModule ? "Edit Module" : "Add New Module"}</h3>
           <form onSubmit={handleSubmit} className="module-form">
             <div className="form-group">
+              <label className="required">Plant ID</label>
+              <input
+                type="text"
+                name="plantId"
+                value={formData.plantId}
+                onChange={handleInputChange}
+                required
+                placeholder="Enter related Plant ID"
+              />
+            </div>
+            <div className="form-group">
               <label className="required">Title</label>
               <input
                 type="text"
@@ -243,6 +273,7 @@ const LearningModule = () => {
               <label>Prerequisites</label>
               <textarea
                 name="prerequisites"
+                placeholder="e.g., Basic Botany, Soil Knowledge"
                 value={formData.prerequisites}
                 onChange={handleInputChange}
               />

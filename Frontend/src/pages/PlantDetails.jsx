@@ -3,7 +3,6 @@ import { useParams } from "react-router-dom"
 import axios from "axios"
 import "../components/PlantDetails.css"
 import Header from "../components/Header"
-import { Accordion, AccordionItem } from "../components/ui/Accordian.jsx"
 
 const PlantDetails = () => {
   const { id } = useParams()
@@ -143,43 +142,126 @@ const PlantDetails = () => {
         )}
       </div>
 
-      <div className="learning-modules">
+      <div className="learning-modules mt-10">
         {plant.learningModules && plant.learningModules.length > 0 && (
           <>
-            <h2>E-Learning Modules 📖</h2>
-            <Accordion type="single" collapsible className="mt-4">
+            {/* <h2 className="text-2xl font-bold mb-6 text-green-800 flex items-center gap-2">
+              📖 E-Learning Modules
+            </h2> */}
+
+            <div className="user-module-grid">
               {plant.learningModules.map((module, index) => (
-                <AccordionItem key={index} title={module.title}>
-                  <p className="text-gray-700">{module.content}</p>
-                  {module.resources && module.resources.length > 0 && (
-                    <ul className="mt-2 space-y-2">
-                      {module.resources.map((resource, idx) => (
-                        <li key={idx} className="text-blue-600 hover:underline">
-                          <a
-                            href={resource.url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                          >
-                            {resource.type}
-                          </a>
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-                </AccordionItem>
+                <div key={index} className="user-module-card">
+                  <h2 className="text-4xl text-center font-bold mb-6 text-green-800 flex items-center gap-2">
+                    📖 E-Learning Modules
+                  </h2>
+                  <div className="imageVideoDiv px-20">
+                    <div className="imageDiv">
+                      {module.image && (
+                        <div className="imageDiv">
+                          <img
+                            src={module.image}
+                            alt={module.title}
+                            className="learning-module-image"
+                          />
+                        </div>
+                      )}
+                    </div>
+                    <div className="VideoN3DDiv media-buttons">
+                      <div
+                        className="modelDiv mx-8"
+                        onClick={() => setShow3DPopup(true)}
+                      >
+                        3D
+                      </div>
+                      <div
+                        className="modelDiv"
+                        onClick={() => setShowVideoPopup(true)}
+                      >
+                        Video
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="p-5 space-y-3">
+                    <h3 className="text-xl font-semibold text-green-700">
+                      {module.title}
+                    </h3>
+
+                    <div className="text-m text-gray-700 space-y-1">
+                      {/* <p>
+                        <strong>🌱 Plant ID:</strong> {module.plantId}
+                      </p> */}
+                      <p>
+                        <strong>📂 Category:</strong> {module.category}
+                      </p>
+                      <p>
+                        <strong>📘 Level:</strong> {module.level}
+                      </p>
+                      <p>
+                        <strong>⏱ Duration:</strong> {module.duration}
+                      </p>
+                      <p className="italic text-gray-600">
+                        {module.description}
+                      </p>
+
+                      {module.prerequisites?.length > 0 && (
+                        <p>
+                          <strong>🧠 Prerequisites:</strong>{" "}
+                          {module.prerequisites.join(", ")}
+                        </p>
+                      )}
+
+                      {module.objectives?.length > 0 && (
+                        <p>
+                          <strong>🎯 Objectives:</strong>{" "}
+                          {module.objectives.join(", ")}
+                        </p>
+                      )}
+
+                      {module.content && (
+                        <div>
+                          <strong>📖 Content:</strong>
+                          <p>{module.content}</p>
+                        </div>
+                      )}
+
+                      {/* {module.resources && module.resources.length > 0 && (
+                        <div>
+                          <strong>🔗 Resources:</strong>
+                          <ul className="list-disc ml-6 mt-1 space-y-1 text-blue-600">
+                            {module.resources.map((resource, idx) => (
+                              <li key={idx}>
+                                <a
+                                  href={resource.url}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="hover:underline"
+                                >
+                                  {resource.type}
+                                </a>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      )} */}
+
+                      {module.tags && Array.isArray(module.tags) && (
+                        <div className="flex flex-wrap gap-2 mt-2">
+                          {module.tags.map((tag) => (
+                            <span key={tag} className="tag-badge">
+                              #{tag}
+                            </span>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </div>
               ))}
-            </Accordion>
+            </div>
           </>
         )}
-      </div>
-
-      <div className="media-buttons">
-        <div className="col3" onClick={() => setShow3DPopup(true)}>
-          3D
-        </div>
-        <div className="col3" onClick={() => setShowVideoPopup(true)}>
-          Video
-        </div>
       </div>
 
       {show3DPopup && (

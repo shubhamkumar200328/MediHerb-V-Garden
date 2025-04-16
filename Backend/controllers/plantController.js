@@ -1,5 +1,6 @@
 import Plant from "../models/Plant.js"
 import Activity from "../models/Activity.js" // 👈 Add this at the top
+import LearningModule from "../models/LearningModule.js"
 
 // Get all plants
 export const getAllPlants = async (req, res) => {
@@ -13,14 +14,26 @@ export const getAllPlants = async (req, res) => {
   }
 }
 
-// Get single plant
+// Get single plant with its learning modules
 export const getPlantById = async (req, res) => {
   try {
     const plant = await Plant.findById(req.params.id)
     if (!plant) {
       return res.status(404).json({ message: "Plant not found" })
     }
-    res.json(plant)
+
+    // 👇 Fetch related learning modules for this plant
+    const learningModules = await LearningModule.find({
+      plantId: plant._id,
+    })
+
+    // 👇 Combine plant and its modules
+    const plantWithModules = {
+      ...plant.toObject(),
+      learningModules,
+    }
+
+    res.json(plantWithModules)
   } catch (error) {
     res
       .status(500)
