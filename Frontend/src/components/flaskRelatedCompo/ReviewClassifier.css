@@ -1,0 +1,57 @@
+.review-card {
+  max-width: 500px;
+  margin: 50px auto;
+  padding: 24px;
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.review-card h2 {
+  margin-bottom: 16px;
+  font-size: 1.5rem;
+  text-align: center;
+  color: #333;
+}
+
+.review-card textarea {
+  width: 100%;
+  resize: none;
+  padding: 12px;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  margin-bottom: 16px;
+  box-sizing: border-box;
+  font-family: inherit;
+}
+
+.review-card button {
+  width: 100%;
+  padding: 12px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.review-card button:hover {
+  background-color: #0056b3;
+}
+
+.result,
+.confidence {
+  margin-top: 20px;
+  font-size: 1.1rem;
+  text-align: center;
+  color: #444;
+}
+
+.result span,
+.confidence span {
+  font-weight: bold;
+}

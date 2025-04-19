@@ -4,8 +4,20 @@ import "../components/Register.css" // Import CSS file
 import React from "react"
 import { ToastContainer, toast } from "react-toastify"
 import Header from "../components/Header.jsx"
+import { useEffect } from "react"
+import { useNavigate } from "react-router-dom"
 
 const Registeradmin = () => {
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    const token = localStorage.getItem("token")
+    const role = localStorage.getItem("userRole")
+    if (token && role === "admin") {
+      navigate("/admin/admindashboard")
+    }
+  }, [navigate])
+
   const { register } = useContext(AuthContext)
   const [name, setName] = useState("")
   const [username, setUsername] = useState("")

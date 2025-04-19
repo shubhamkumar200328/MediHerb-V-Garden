@@ -104,6 +104,9 @@ const Header = () => {
               )}
             </li>
           )}
+          <li>
+            <Link to="/userprofile">UserProfile</Link>
+          </li>
         </ul>
       </nav>
     </header>

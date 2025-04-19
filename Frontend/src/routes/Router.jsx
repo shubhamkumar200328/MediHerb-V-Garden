@@ -22,6 +22,7 @@ import Register from "../pages/Register"
 import Loginadmin from "../pages/Loginadmin"
 import Registeradmin from "../pages/Registeradmin"
 import AdminDashboard from "../pages/admin/pages/AdminDashboard"
+import ReviewClassifier from "../components/flaskRelatedCompo/ReviewClassifier"
 
 const AppRouter = () => {
   return (
@@ -45,6 +46,7 @@ const AppRouter = () => {
           <Route path="/adminlogin" element={<Loginadmin />} />
           <Route path="/registeradmin" element={<Registeradmin />} />
           <Route path="/admin/admindashboard/*" element={<AdminDashboard />} />
+          <Route path="/reviewclassifier" element={<ReviewClassifier />} />
           <Route
             path="/admindashboard"
             element={<Navigate to="/admin/admindashboard" replace />}

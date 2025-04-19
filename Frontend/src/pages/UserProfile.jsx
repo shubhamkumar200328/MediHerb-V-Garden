@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom"
 import { getProfile } from "../services/api.js" // Import API function
 import "../components/UserProfile.css"
 import Header from "../components/Header.jsx"
+import ReviewClassifier from "../components/flaskRelatedCompo/ReviewClassifier.jsx"
 
 function UserProfile() {
   const [user, setUser] = useState(null)
@@ -60,6 +61,9 @@ function UserProfile() {
             </div>
           </div>
         )}
+      </div>
+      <div className="reviewClassifier m-7">
+        <ReviewClassifier />
       </div>
     </>
   )
