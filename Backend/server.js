@@ -14,6 +14,8 @@ import protectedRoutes from "./routes/protected.js"
 import { protect } from "./middleware/authMiddleware.js"
 import userRoutes from "./routes/userRoutes.js"
 import learningModuleRoutes from "./routes/learningModuleRoutes.js"
+import reviewRoutes from "./routes/reviewRoutes.js"
+import sentimentRoutes from "./routes/sentimentRoutes.js"
 import activityRoutes from "./routes/activityRoutes.js" // 🔥 include `.js` in the path
 
 // Setup for ES modules
@@ -49,6 +51,9 @@ app.use("/api/protected", protectedRoutes)
 app.use("/api/users", userRoutes)
 app.use("/api/learning-modules", learningModuleRoutes)
 app.use("/api/activities", activityRoutes)
+
+app.use("/api/reviews", reviewRoutes)
+app.use("/api/sentiments", sentimentRoutes)
 
 // other setup...
 app.use("/api/activities", activityRoutes)

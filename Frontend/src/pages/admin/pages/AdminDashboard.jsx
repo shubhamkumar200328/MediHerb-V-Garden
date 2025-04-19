@@ -6,6 +6,7 @@ import UserManagement from "./UserManagement"
 import LearningModules from "./LearningModules"
 import Analytics from "./Analytics"
 import { useState } from "react"
+import SentimentOverview from "./SentimentOverview"
 
 function AdminDashboard() {
   const [isAuthenticated, setIsAuthenticated] = useState(true) // Dummy auth state
@@ -27,6 +28,7 @@ function AdminDashboard() {
           <Route path="/users" element={<UserManagement />} />
           <Route path="/modules" element={<LearningModules />} />
           <Route path="/analytics" element={<Analytics />} />
+          <Route path="/sentimentoverview" element={<SentimentOverview />} />
           <Route path="*" element={<Navigate to="/" replace />} />
           <Route
             path="/admin/usermanagement"

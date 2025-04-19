@@ -45,6 +45,14 @@ function Sidebar() {
           </Link>
         </li>
         <li className="mb-4">
+          <Link
+            to="/admin/admindashboard/sentimentoverview"
+            className="text-blue-500"
+          >
+            Sentiment Overview
+          </Link>
+        </li>
+        <li className="mb-4">
           <Link to="/admin/admindashboard/analytics" className="text-blue-500">
             Analytics
           </Link>
