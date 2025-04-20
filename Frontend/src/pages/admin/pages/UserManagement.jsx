@@ -1,282 +1,228 @@
-import React, { useState, useEffect } from "react"
+import React, { useEffect, useState } from "react"
 import axios from "axios"
-import { useNavigate } from "react-router-dom"
-import "./UserManagement.css"
+import cloudinaryAxios from "../../../utils/cloudinaryAxios.js" // adjust path as needed
 
 const UserManagement = () => {
-  const navigate = useNavigate()
   const [users, setUsers] = useState([])
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(null)
-  const [success, setSuccess] = useState(null)
-  const [editingUser, setEditingUser] = useState(null)
   const [formData, setFormData] = useState({
     name: "",
-    username: "", // 🔥 add this
     email: "",
     password: "",
     role: "user",
-    phone: "",
-    address: "",
     profileImage: "",
   })
 
-  useEffect(() => {
-    const storedToken = localStorage.getItem("token")
-    const storedRole = localStorage.getItem("userRole")
+  const [editingUserId, setEditingUserId] = useState(null)
 
-    console.log("Checking token/role:", storedToken, storedRole)
-
-    if (!storedToken || storedRole !== "admin") {
-      navigate("/login")
-      return
-    }
-
-    axios.defaults.headers.common["Authorization"] = `Bearer ${storedToken}`
-    fetchUsers()
-  }, [navigate])
-
+  // Fetch all users
   const fetchUsers = async () => {
     try {
-      setLoading(true)
-      const response = await axios.get("http://localhost:5015/api/users")
-      setUsers(response.data)
-      setError(null)
-    } catch (err) {
-      console.error("Error fetching users:", err)
-      if (err.response?.status === 401) {
-        localStorage.removeItem("token")
-        localStorage.removeItem("userRole")
-        navigate("/login")
-      } else {
-        setError(err.response?.data?.message || "Failed to fetch users")
-      }
-    } finally {
-      setLoading(false)
+      const res = await axios.get("http://localhost:5015/api/users")
+      setUsers(res.data)
+    } catch (error) {
+      console.error("Error fetching users:", error)
     }
   }
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target
-    setFormData((prev) => ({ ...prev, [name]: value }))
+  useEffect(() => {
+    fetchUsers()
+  }, [])
+
+  // Secure image upload to Cloudinary
+  const handleImageUpload = async (file) => {
+    try {
+      const { data } = await axios.post(
+        "http://localhost:5015/api/cloudinary/generate-signature"
+      )
+
+      const uploadForm = new FormData()
+      uploadForm.append("file", file)
+      uploadForm.append("api_key", data.apiKey)
+      uploadForm.append("timestamp", data.timestamp)
+      uploadForm.append("signature", data.signature)
+      uploadForm.append("folder", "user-profiles")
+
+      const uploadRes = await cloudinaryAxios.post("/image/upload", uploadForm)
+
+      return uploadRes.data.secure_url
+    } catch (err) {
+      console.error("Image upload error:", err)
+      return ""
+    }
+  }
+
+  const handleInputChange = async (e) => {
+    const { name, value, files } = e.target
+
+    if (name === "profileImage" && files[0]) {
+      const imageUrl = await handleImageUpload(files[0])
+      setFormData({ ...formData, profileImage: imageUrl })
+    } else {
+      setFormData({ ...formData, [name]: value })
+    }
   }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
-      if (editingUser) {
+      if (editingUserId) {
         await axios.put(
-          `http://localhost:5015/api/users/${editingUser._id}`,
+          `http://localhost:5015/api/users/${editingUserId}`,
           formData
         )
-        setSuccess("User updated successfully!")
       } else {
         await axios.post("http://localhost:5015/api/users", formData)
-        setSuccess("User added successfully!")
       }
       setFormData({
         name: "",
-        username: "", // 🔥 add this
         email: "",
         password: "",
         role: "user",
-        phone: "",
-        address: "",
         profileImage: "",
       })
-      setEditingUser(null)
+      setEditingUserId(null)
       fetchUsers()
-    } catch (err) {
-      console.error("Error saving user:", err)
-      if (err.response?.status === 401) {
-        localStorage.removeItem("token")
-        localStorage.removeItem("userRole")
-        navigate("/login")
-      } else {
-        setError(err.response?.data?.message || "Failed to save user")
-      }
+    } catch (error) {
+      console.error("Error saving user:", error)
     }
   }
 
   const handleEdit = (user) => {
-    setEditingUser(user)
     setFormData({
       name: user.name,
-      username: user.username || "", // 🔥 add this
       email: user.email,
-      password: "",
+      password: "", // Do not prefill password
       role: user.role,
-      phone: user.phone || "",
-      address: user.address || "",
-      profileImage: user.profileImage || "",
+      profileImage: user.profileImage,
     })
+    setEditingUserId(user._id)
   }
 
   const handleDelete = async (id) => {
-    if (window.confirm("Are you sure you want to delete this user?")) {
-      try {
-        await axios.delete(`http://localhost:5015/api/users/${id}`)
-        setSuccess("User deleted successfully!")
-        fetchUsers()
-      } catch (err) {
-        console.error("Error deleting user:", err)
-        if (err.response?.status === 401) {
-          localStorage.removeItem("token")
-          localStorage.removeItem("userRole")
-          navigate("/login")
-        } else {
-          setError(err.response?.data?.message || "Failed to delete user")
-        }
-      }
+    try {
+      await axios.delete(`http://localhost:5015/api/users/${id}`)
+      fetchUsers()
+    } catch (error) {
+      console.error("Error deleting user:", error)
     }
   }
 
-  const handleCancel = () => {
-    setEditingUser(null)
-    setFormData({
-      name: "",
-      email: "",
-      password: "",
-      role: "user",
-      phone: "",
-      address: "",
-      profileImage: "",
-    })
-  }
-
-  if (loading) return <div className="loading">Loading users...</div>
-
   return (
-    <div className="user-management-container">
-      <h2>User Management</h2>
-      {error && <div className="error">{error}</div>}
-      {success && <div className="success-message">{success}</div>}
-      <div className="user-management-grid">
-        <div className="user-list-card">
-          <h3>User List</h3>
-          <div className="user-list">
+    <div className="container mx-auto p-4">
+      <h2 className="text-2xl font-bold mb-4">User Management</h2>
+
+      {/* Form */}
+      <form
+        onSubmit={handleSubmit}
+        className="mb-6 grid grid-cols-1 md:grid-cols-2 gap-4"
+      >
+        <input
+          type="text"
+          name="name"
+          value={formData.name}
+          onChange={handleInputChange}
+          placeholder="Name"
+          required
+          className="border p-2 rounded"
+        />
+        <input
+          type="email"
+          name="email"
+          value={formData.email}
+          onChange={handleInputChange}
+          placeholder="Email"
+          required
+          className="border p-2 rounded"
+        />
+        <input
+          type="password"
+          name="password"
+          value={formData.password}
+          onChange={handleInputChange}
+          placeholder="Password"
+          className="border p-2 rounded"
+        />
+        <select
+          name="role"
+          value={formData.role}
+          onChange={handleInputChange}
+          className="border p-2 rounded"
+        >
+          <option value="user">User</option>
+          <option value="admin">Admin</option>
+        </select>
+        <input
+          type="file"
+          name="profileImage"
+          onChange={handleInputChange}
+          accept="image/*"
+          className="border p-2 rounded"
+        />
+        {formData.profileImage && (
+          <img
+            src={formData.profileImage}
+            alt="Preview"
+            className="h-16 w-16 rounded-full object-cover mt-2"
+          />
+        )}
+        <button
+          type="submit"
+          className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 md:col-span-2"
+        >
+          {editingUserId ? "Update User" : "Add User"}
+        </button>
+      </form>
+
+      {/* Users List */}
+      <div className="overflow-x-auto">
+        <table className="min-w-full bg-white shadow-md rounded-lg">
+          <thead>
+            <tr className="bg-gray-200 text-left">
+              <th className="py-2 px-4">Image</th>
+              <th className="py-2 px-4">Name</th>
+              <th className="py-2 px-4">Email</th>
+              <th className="py-2 px-4">Role</th>
+              <th className="py-2 px-4">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
             {users.map((user) => (
-              <div key={user._id} className="user-item">
-                <img
-                  src={user.profileImage || "/default-avatar.png"}
-                  alt={user.name}
-                  className="user-avatar"
-                />
-                <div className="user-info">
-                  <h4>{user.name}</h4>
-                  <p>{user.email}</p>
-                  <span className={`user-role ${user.role}`}>{user.role}</span>
-                </div>
-                <div className="user-actions">
-                  <button onClick={() => handleEdit(user)}>Edit</button>
-                  <button onClick={() => handleDelete(user._id)}>Delete</button>
-                </div>
-              </div>
+              <tr key={user._id} className="border-t">
+                <td className="py-2 px-4">
+                  <img
+                    src={user.profileImage}
+                    alt={user.name}
+                    className="h-10 w-10 rounded-full object-cover"
+                  />
+                </td>
+                <td className="py-2 px-4">{user.name}</td>
+                <td className="py-2 px-4">{user.email}</td>
+                <td className="py-2 px-4 capitalize">{user.role}</td>
+                <td className="py-2 px-4 space-x-2">
+                  <button
+                    onClick={() => handleEdit(user)}
+                    className="bg-yellow-500 text-white px-2 py-1 rounded hover:bg-yellow-600"
+                  >
+                    Edit
+                  </button>
+                  <button
+                    onClick={() => handleDelete(user._id)}
+                    className="bg-red-600 text-white px-2 py-1 rounded hover:bg-red-700"
+                  >
+                    Delete
+                  </button>
+                </td>
+              </tr>
             ))}
-          </div>
-        </div>
-
-        <div className="user-form-card">
-          <h3>{editingUser ? "Edit User" : "Add New User"}</h3>
-          <form onSubmit={handleSubmit} className="user-form">
-            <div className="form-group">
-              <label className="required">Name</label>
-              <input
-                type="text"
-                name="name"
-                value={formData.name}
-                onChange={handleInputChange}
-                required
-              />
-            </div>
-            <div className="form-group">
-              <label className="required">Username</label>
-              <input
-                type="text"
-                name="username"
-                value={formData.username}
-                onChange={handleInputChange}
-                required
-              />
-            </div>
-
-            <div className="form-group">
-              <label className="required">Email</label>
-              <input
-                type="email"
-                name="email"
-                value={formData.email}
-                onChange={handleInputChange}
-                required
-              />
-            </div>
-
-            <div className="form-group">
-              <label className={editingUser ? "" : "required"}>Password</label>
-              <input
-                type="password"
-                name="password"
-                value={formData.password}
-                onChange={handleInputChange}
-                required={!editingUser}
-                placeholder={editingUser ? "Leave blank to keep current" : ""}
-              />
-            </div>
-
-            <div className="form-group">
-              <label className="required">Role</label>
-              <select
-                name="role"
-                value={formData.role}
-                onChange={handleInputChange}
-                required
-              >
-                <option value="user">User</option>
-                <option value="admin">Admin</option>
-              </select>
-            </div>
-
-            <div className="form-group">
-              <label>Phone</label>
-              <input
-                type="tel"
-                name="phone"
-                value={formData.phone}
-                onChange={handleInputChange}
-              />
-            </div>
-
-            <div className="form-group">
-              <label>Address</label>
-              <textarea
-                name="address"
-                value={formData.address}
-                onChange={handleInputChange}
-              />
-            </div>
-
-            <div className="form-group">
-              <label>Profile Image URL</label>
-              <input
-                type="url"
-                name="profileImage"
-                value={formData.profileImage}
-                onChange={handleInputChange}
-              />
-            </div>
-
-            <div className="form-actions">
-              <button type="submit">
-                {editingUser ? "Update User" : "Add User"}
-              </button>
-              {editingUser && (
-                <button type="button" onClick={handleCancel}>
-                  Cancel
-                </button>
-              )}
-            </div>
-          </form>
-        </div>
+            {users.length === 0 && (
+              <tr>
+                <td colSpan="5" className="text-center py-4 text-gray-500">
+                  No users found.
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </table>
       </div>
     </div>
   )

@@ -1,30 +1,48 @@
-/* Center the profile card */
-.profile-container {
-  width: 100%;
-  max-width: 400px;
-  margin: 50px auto;
-  padding: 20px;
-  background: #fff;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+.profile-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  background-color: #f8f8f8;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.profile-avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #ccc;
+}
+
+.profile-details {
+  flex: 1;
+}
+
+.profile-field {
+  margin-bottom: 12px;
+}
+
+.profile-field label {
+  font-weight: 600;
+  color: #555;
+  margin-right: 10px;
+}
+
+.role-badge {
+  padding: 4px 10px;
   border-radius: 8px;
-  text-align: center;
+  font-weight: 500;
+  text-transform: capitalize;
 }
 
-/* Style the heading */
-.profile-container h2 {
-  margin-bottom: 15px;
-  font-size: 24px;
-  color: #333;
+.role-badge.user {
+  background-color: #e0f7fa;
+  color: #00796b;
 }
 
-/* Style the user name */
-.user-name {
-  font-weight: bold;
-  color: #007bff;
-}
-
-/* Style loading text */
-.loading-text {
-  color: #666;
-  font-style: italic;
+.role-badge.admin {
+  background-color: #ffe0b2;
+  color: #e65100;
 }
