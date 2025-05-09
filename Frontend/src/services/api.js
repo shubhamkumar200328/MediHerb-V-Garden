@@ -1,12 +1,3 @@
-// import axios from "axios"
-
-// const api = axios.create({
-//   baseURL: "http://localhost:5015/api", // Backend URL
-// })
-
-// export const fetchPlants = (filters) => api.get("/plants", { params: filters })
-// export const fetchPlantDetails = (id) => api.get(`/plants/${id}`)
-
 import axios from "axios"
 
 const api = axios.create({
@@ -35,4 +26,35 @@ export const getProfile = async () => {
 export const getAuthHeader = () => {
   const token = localStorage.getItem("token")
   return token ? { Authorization: `Bearer ${token}` } : {}
+}
+
+// Add this function below the getProfile() function
+export const updateProfile = async (profileData) => {
+  const token = localStorage.getItem("token")
+  return api.put("/api/users/me", profileData, {
+    headers: { Authorization: `Bearer ${token}` },
+  })
+}
+
+export const deleteOwnAccount = async () => {
+  const token = localStorage.getItem("token")
+  return api.delete("/api/users/me", {
+    headers: { Authorization: `Bearer ${token}` },
+  })
+}
+
+// 🌿 Chatbot OLLAMA - send a chat message
+export const sendChatMessage = async (prompt) => {
+  const response = await fetch("http://localhost:5015/api/ollama/generate", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ prompt }),
+  })
+
+  if (!response.ok) {
+    throw new Error("Failed to get response from server")
+  }
+
+  const data = await response.json()
+  return { reply: data.response }
 }

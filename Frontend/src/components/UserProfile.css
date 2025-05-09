@@ -1,4 +1,136 @@
+/* Container */
+.profile-container {
+  max-width: 600px;
+  margin: 3rem auto;
+  padding: 2rem;
+  background-color: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Title */
+.profile-container h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  font-size: 2rem;
+  color: #333;
+}
+
+/* Profile Card */
 .profile-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+/* Avatar */
+.profile-avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid #4caf50;
+}
+
+/* Input Fields */
+.profile-edit-input {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  outline: none;
+  transition: border 0.3s;
+}
+
+.profile-edit-input:focus {
+  border-color: #4caf50;
+}
+
+/* Buttons */
+.profile-btn-save,
+.profile-btn-edit {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.profile-btn-save:hover,
+.profile-btn-edit:hover {
+  background-color: #388e3c;
+}
+
+/* Profile Details */
+.profile-details {
+  width: 100%;
+}
+
+.profile-field {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.8rem;
+  font-size: 1rem;
+}
+
+.profile-field label {
+  font-weight: bold;
+  color: #555;
+}
+
+.profile-field span {
+  color: #222;
+  max-width: 60%;
+  text-align: right;
+}
+
+/* Role badge */
+.role-badge {
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  color: white;
+  background-color: #4caf50;
+  text-transform: capitalize;
+}
+
+/* Different role colors */
+.role-badge.admin {
+  background-color: #ff7043;
+}
+.role-badge.user {
+  background-color: #42a5f5;
+}
+
+/* Error Message */
+.error-message {
+  text-align: center;
+  color: red;
+  font-weight: bold;
+  padding: 1rem;
+}
+
+.profile-btn-delete {
+  background-color: #f44336;
+  color: white;
+  border: none;
+  padding: 0.5em 1.2em;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.profile-btn-delete:hover {
+  background-color: #d32f2f;
+}
+
+/* .profile-card {
   display: flex;
   align-items: flex-start;
   gap: 20px;
@@ -45,4 +177,4 @@
 .role-badge.admin {
   background-color: #ffe0b2;
   color: #e65100;
-}
+} */

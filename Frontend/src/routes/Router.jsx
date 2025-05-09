@@ -23,6 +23,8 @@ import Loginadmin from "../pages/Loginadmin"
 import Registeradmin from "../pages/Registeradmin"
 import AdminDashboard from "../pages/admin/pages/AdminDashboard"
 import ReviewClassifier from "../components/flaskRelatedCompo/ReviewClassifier"
+import ChatPage from "../components/aichatbot/ChatPage"
+import OllamaChat from "../components/ollamaResponse/ollama3"
 
 const AppRouter = () => {
   return (
@@ -47,6 +49,8 @@ const AppRouter = () => {
           <Route path="/registeradmin" element={<Registeradmin />} />
           <Route path="/admin/admindashboard/*" element={<AdminDashboard />} />
           <Route path="/reviewclassifier" element={<ReviewClassifier />} />
+          <Route path="/aichatpage" element={<ChatPage />} />
+          <Route path="/getyourdoutclear" element={<OllamaChat />} />
           <Route
             path="/admindashboard"
             element={<Navigate to="/admin/admindashboard" replace />}

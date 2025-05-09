@@ -3,6 +3,8 @@ import { useParams } from "react-router-dom"
 import axios from "axios"
 import "../components/PlantDetails.css"
 import Header from "../components/Header"
+import ChatPage from "../components/aichatbot/ChatPage"
+import OllamaChat from "../components/ollamaResponse/ollama3"
 
 const PlantDetails = () => {
   const { id } = useParams()
@@ -283,6 +285,12 @@ const PlantDetails = () => {
           </div>
         </div>
       )}
+      <div className="chatBotDiv m-20">
+        <ChatPage />
+      </div>
+      {/* <div className="chatBotDiv m-20">
+        <OllamaChat />
+      </div> */}
     </>
   )
 }
