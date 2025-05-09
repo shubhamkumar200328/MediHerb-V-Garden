@@ -5,6 +5,65 @@ import { authMiddleware, adminMiddleware } from "../middleware/auth.js"
 
 const router = express.Router()
 
+// Update own profile - logged in user only
+router.put("/me", authMiddleware, async (req, res) => {
+  try {
+    const updates = req.body
+    const user = await User.findById(req.user._id)
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" })
+    }
+
+    // Disallow changing role or email
+    if (updates.role || updates.email) {
+      return res
+        .status(403)
+        .json({ message: "You are not allowed to change email or role" })
+    }
+
+    if (updates.name) user.name = updates.name
+    if (updates.phone) user.phone = updates.phone
+    if (updates.address) user.address = updates.address
+    if (updates.profileImage) user.profileImage = updates.profileImage
+
+    if (updates.password && updates.password.trim()) {
+      const salt = await bcrypt.genSalt(10)
+      user.password = await bcrypt.hash(updates.password, salt)
+    }
+
+    await user.save()
+
+    const userObj = user.toObject()
+    delete userObj.password
+
+    res.json(userObj)
+  } catch (error) {
+    console.error("Error updating self profile:", error)
+    res
+      .status(400)
+      .json({ message: "Error updating profile", error: error.message })
+  }
+})
+
+// Delete own account - logged in user only
+router.delete("/me", authMiddleware, async (req, res) => {
+  try {
+    const user = await User.findById(req.user._id)
+    if (!user) {
+      return res.status(404).json({ message: "User not found" })
+    }
+
+    await user.deleteOne()
+    res.json({ message: "Your account has been deleted successfully" })
+  } catch (error) {
+    console.error("Error deleting own account:", error)
+    res
+      .status(500)
+      .json({ message: "Error deleting account", error: error.message })
+  }
+})
+
 // Get all users - admin only
 router.get("/", authMiddleware, adminMiddleware, async (req, res) => {
   try {

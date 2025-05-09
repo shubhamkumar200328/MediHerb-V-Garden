@@ -20,6 +20,8 @@ import activityRoutes from "./routes/activityRoutes.js" // 🔥 include `.js` in
 
 import cloudinaryRoutes from "./routes/cloudinary.js"
 
+import ollamaRoutes from "./routes/ollamaRoutes.js"
+
 // Setup for ES modules
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
@@ -58,6 +60,8 @@ app.use("/api/reviews", reviewRoutes)
 app.use("/api/sentiments", sentimentRoutes)
 
 app.use("/api/cloudinary", cloudinaryRoutes)
+
+app.use("/api/ollama", ollamaRoutes)
 
 // other setup...
 app.use("/api/activities", activityRoutes)
