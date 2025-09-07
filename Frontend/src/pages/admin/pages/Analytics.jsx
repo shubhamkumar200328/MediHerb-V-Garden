@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react"
-import axios from "axios"
-import "./Analytics.css"
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+import './Analytics.css';
 
 const Analytics = () => {
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(null)
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const [stats, setStats] = useState({
     totalUsers: 0,
     totalPlants: 0,
@@ -14,32 +14,32 @@ const Analytics = () => {
     userGrowth: [],
     moduleEngagement: [],
     plantPopularity: [],
-  })
+  });
 
   useEffect(() => {
-    fetchAnalytics()
-  }, [])
+    fetchAnalytics();
+  }, []);
 
   const fetchAnalytics = async () => {
     try {
-      setLoading(true)
-      const response = await axios.get("http://localhost:5015/api/analytics")
-      setStats(response.data)
-      setError(null)
+      setLoading(true);
+      const response = await axios.get('http://localhost:5015/api/analytics');
+      setStats(response.data);
+      setError(null);
     } catch (err) {
-      setError("Failed to fetch analytics data. Please try again later.")
-      console.error("Error fetching analytics:", err)
+      setError('Failed to fetch analytics data. Please try again later.');
+      console.error('Error fetching analytics:', err);
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   if (loading) {
     return (
       <div className="analytics-container">
         <div className="loading">Loading analytics data...</div>
       </div>
-    )
+    );
   }
 
   if (error) {
@@ -50,7 +50,7 @@ const Analytics = () => {
           Retry
         </button>
       </div>
-    )
+    );
   }
 
   return (
@@ -82,7 +82,7 @@ const Analytics = () => {
             <p className="metric-value">{stats.totalPlants}</p>
             <p className="metric-change">
               {stats.plantPopularity[stats.plantPopularity.length - 1]?.views ||
-                0}{" "}
+                0}{' '}
               views this month
             </p>
           </div>
@@ -97,7 +97,7 @@ const Analytics = () => {
             <p className="metric-value">{stats.totalModules}</p>
             <p className="metric-change">
               {stats.moduleEngagement[stats.moduleEngagement.length - 1]
-                ?.completions || 0}{" "}
+                ?.completions || 0}{' '}
               completions
             </p>
           </div>
@@ -196,23 +196,23 @@ const Analytics = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
 // Helper function to get appropriate icon for activity type
 const getActivityIcon = (type) => {
   switch (type) {
-    case "user":
-      return "fa-user"
-    case "plant":
-      return "fa-leaf"
-    case "module":
-      return "fa-book"
-    case "login":
-      return "fa-sign-in-alt"
+    case 'user':
+      return 'fa-user';
+    case 'plant':
+      return 'fa-leaf';
+    case 'module':
+      return 'fa-book';
+    case 'login':
+      return 'fa-sign-in-alt';
     default:
-      return "fa-info-circle"
+      return 'fa-info-circle';
   }
-}
+};
 
-export default Analytics
+export default Analytics;

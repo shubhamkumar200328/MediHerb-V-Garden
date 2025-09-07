@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react"
-import { Bar } from "react-chartjs-2"
+import { useEffect, useState } from 'react';
+import { Bar } from 'react-chartjs-2';
 import {
   Chart as ChartJS,
   BarElement,
@@ -7,10 +7,10 @@ import {
   LinearScale,
   Tooltip,
   Legend,
-} from "chart.js"
-import axios from "axios"
+} from 'chart.js';
+import axios from 'axios';
 
-ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend)
+ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
 
 const SentimentOverview = () => {
   const [stats, setStats] = useState({
@@ -19,13 +19,13 @@ const SentimentOverview = () => {
     neutral: 0,
     negative: 0,
     trend: [],
-  })
+  });
 
   useEffect(() => {
     const fetchStats = async () => {
       try {
-        const res = await axios.get("http://localhost:5015/api/sentiments")
-        const data = res.data
+        const res = await axios.get('http://localhost:5015/api/sentiments');
+        const data = res.data;
 
         // Process sentiment counts
         const counts = {
@@ -33,24 +33,24 @@ const SentimentOverview = () => {
           positive: 0,
           neutral: 0,
           negative: 0,
-        }
-        const trendMap = {}
+        };
+        const trendMap = {};
 
         data.forEach((entry) => {
-          const label = entry.label.toLowerCase()
-          if (label in counts) counts[label]++
+          const label = entry.label.toLowerCase();
+          if (label in counts) counts[label]++;
 
-          const date = new Date(entry.createdAt).toLocaleDateString()
+          const date = new Date(entry.createdAt).toLocaleDateString();
           if (!trendMap[date])
-            trendMap[date] = { positive: 0, neutral: 0, negative: 0 }
-          trendMap[date][label]++
-        })
+            trendMap[date] = { positive: 0, neutral: 0, negative: 0 };
+          trendMap[date][label]++;
+        });
 
-        const sortedDates = Object.keys(trendMap).sort()
+        const sortedDates = Object.keys(trendMap).sort();
         const trend = sortedDates.map((date) => ({
           date,
           ...trendMap[date],
-        }))
+        }));
 
         setStats({
           total: counts.total,
@@ -58,35 +58,35 @@ const SentimentOverview = () => {
           neutral: counts.neutral,
           negative: counts.negative,
           trend,
-        })
+        });
       } catch (err) {
-        console.error("Failed to fetch sentiment stats:", err)
+        console.error('Failed to fetch sentiment stats:', err);
       }
-    }
+    };
 
-    fetchStats()
-  }, [])
+    fetchStats();
+  }, []);
 
   const chartData = {
     labels: stats.trend.map((t) => t.date),
     datasets: [
       {
-        label: "Positive",
+        label: 'Positive',
         data: stats.trend.map((t) => t.positive),
-        backgroundColor: "rgba(75, 192, 192, 0.6)",
+        backgroundColor: 'rgba(75, 192, 192, 0.6)',
       },
       {
-        label: "Neutral",
+        label: 'Neutral',
         data: stats.trend.map((t) => t.neutral),
-        backgroundColor: "rgba(201, 203, 207, 0.6)",
+        backgroundColor: 'rgba(201, 203, 207, 0.6)',
       },
       {
-        label: "Negative",
+        label: 'Negative',
         data: stats.trend.map((t) => t.negative),
-        backgroundColor: "rgba(255, 99, 132, 0.6)",
+        backgroundColor: 'rgba(255, 99, 132, 0.6)',
       },
     ],
-  }
+  };
 
   return (
     <div className="p-6 rounded-xl shadow-xl bg-white">
@@ -122,7 +122,7 @@ const SentimentOverview = () => {
         <Bar data={chartData} />
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default SentimentOverview
+export default SentimentOverview;

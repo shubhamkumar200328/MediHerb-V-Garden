@@ -1,52 +1,28 @@
-import React from "react"
-import { Slide } from "react-slideshow-image"
-import "react-slideshow-image/dist/styles.css"
-import Img_1 from "../assets/images/Medi_landing_1.webp"
+import { Zoom } from 'react-slideshow-image';
+import 'react-slideshow-image/dist/styles.css';
+import image_1 from '../assets/images/Medi_landing_1.webp';
+import image_2 from '../assets/images/Medi_landing_2.webp';
+import image_3 from '../assets/images/Medi_landing_3.webp';
+import image_4 from '../assets/images/Medi_landing_4.webp';
+import image_5 from '../assets/images/Medi_landing_5.webp';
 
-const spanStyle = {
-  padding: "20px",
-  background: "#efefef",
-  color: "#000000",
-}
-
-const divStyle = {
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-  backgroundSize: "cover",
-  height: "400px",
-}
-const slideImages = [
-  {
-    url: "https://images.unsplash.com/photo-1509721434272-b79147e0e708?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80",
-    caption: "Slide 1",
-  },
-  {
-    url: "https://images.unsplash.com/photo-1506710507565-203b9f24669b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1536&q=80",
-    caption: "Slide 2",
-  },
-  {
-    url: "https://images.unsplash.com/photo-1536987333706-fc9adfb10d91?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80",
-    caption: "Slide 3",
-  },
-]
+const images = [image_1, image_3, image_4, image_5, image_2];
 
 const Slideshow = () => {
   return (
-    <div className="slide-container">
-      <Slide>
-        {slideImages.map((slideImage, index) => (
-          <div key={index}>
-            <div
-              style={{ ...divStyle, backgroundImage: `url(${slideImage.url})` }}
-            >
-              <span style={spanStyle}>{slideImage.caption}</span>
-            </div>
-          </div>
+    <div className="slideShow">
+      <Zoom scale={0.4}>
+        {images.map((each, index) => (
+          <img
+            key={index}
+            style={{ width: '100%' }}
+            src={each}
+            alt={`slide ${index + 1}`}
+          />
         ))}
-      </Slide>
+      </Zoom>
     </div>
-  )
-}
+  );
+};
 
-export default Slideshow
+export default Slideshow;

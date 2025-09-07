@@ -1,7 +1,6 @@
-import React from "react"
-import Header from "../../../components/Header"
-import { Link } from "react-router-dom"
-import "../../../components/Admin.css"
+import Header from '../../../components/Header';
+import { Link } from 'react-router-dom';
+import '../../../components/Admin.css';
 
 function AdminPage() {
   return (
@@ -13,7 +12,7 @@ function AdminPage() {
         <span>🌿 Add Plant</span>
       </Link>
     </div>
-  )
+  );
 }
 
-export default AdminPage
+export default AdminPage;

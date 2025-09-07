@@ -1,53 +1,53 @@
-import React, { useState, useEffect } from "react"
-import axios from "axios"
-import { Link } from "react-router-dom"
-import "../components/Explore.css"
-import Header from "../components/Header.jsx"
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+import { Link } from 'react-router-dom';
+import '../components/Explore.css';
+import Header from '../components/Header.jsx';
 
 const Explore = () => {
-  const [plants, setPlants] = useState([])
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(null)
-  const [searchTerm, setSearchTerm] = useState("")
-  const [selectedCategory, setSelectedCategory] = useState("all")
+  const [plants, setPlants] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('all');
 
-  const categories = ["all", "Immunity", "Skin Care"]
+  const categories = ['all', 'Immunity', 'Skin Care'];
 
   useEffect(() => {
-    fetchPlants()
-  }, [])
+    fetchPlants();
+  }, []);
 
   const fetchPlants = async () => {
     try {
-      setLoading(true)
-      setError(null)
-      const response = await axios.get("http://localhost:5015/api/plants")
-      setPlants(response.data)
+      setLoading(true);
+      setError(null);
+      const response = await axios.get('http://localhost:5015/api/plants');
+      setPlants(response.data);
     } catch (err) {
       setError(
         err.response?.data?.message ||
           err.message ||
-          "Failed to fetch plants. Please try again later."
-      )
+          'Failed to fetch plants. Please try again later.',
+      );
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   const filteredPlants = plants.filter((plant) => {
     const matchesSearch =
       plant.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      plant.description.toLowerCase().includes(searchTerm.toLowerCase())
+      plant.description.toLowerCase().includes(searchTerm.toLowerCase());
 
     const matchesCategory =
-      selectedCategory === "all" || plant.medicinalUse === selectedCategory
+      selectedCategory === 'all' || plant.medicinalUse === selectedCategory;
 
-    return matchesSearch && matchesCategory
-  })
+    return matchesSearch && matchesCategory;
+  });
 
   const handleRetry = () => {
-    fetchPlants()
-  }
+    fetchPlants();
+  };
 
   if (loading) {
     return (
@@ -58,7 +58,7 @@ const Explore = () => {
           <p>Loading plants...</p>
         </div>
       </div>
-    )
+    );
   }
 
   if (error) {
@@ -72,7 +72,7 @@ const Explore = () => {
           </button>
         </div>
       </div>
-    )
+    );
   }
 
   return (
@@ -117,7 +117,7 @@ const Explore = () => {
                     alt={plant.name}
                     className="plant-image"
                     onError={(e) => {
-                      e.target.src = "/placeholder-plant.jpg"
+                      e.target.src = '/placeholder-plant.jpg';
                     }}
                   />
                 </div>
@@ -141,7 +141,7 @@ const Explore = () => {
         )}
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Explore
+export default Explore;

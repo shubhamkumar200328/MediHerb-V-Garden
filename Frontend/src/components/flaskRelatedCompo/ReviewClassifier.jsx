@@ -1,56 +1,51 @@
-import React, { useState } from "react"
-import axios from "axios"
-import "./ReviewClassifier.css"
+import { useState } from 'react';
+import axios from 'axios';
+import './ReviewClassifier.css';
 
 const emojiMap = {
-  Positive: "😄",
-  Neutral: "😐",
-  Negative: "😡",
-}
+  Positive: '😄',
+  Neutral: '😐',
+  Negative: '😡',
+};
 
 const ReviewClassifier = () => {
-  const [review, setReview] = useState("")
-  const [result, setResult] = useState("")
-  const [confidence, setConfidence] = useState(null)
-  const [loading, setLoading] = useState(false)
+  const [review, setReview] = useState('');
+  const [result, setResult] = useState('');
+  const [confidence, setConfidence] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
-    e.preventDefault() // 🔒 Prevent double submission
+    e.preventDefault(); // Prevention from double submission
 
-    if (!review.trim() || loading) return
+    if (!review.trim() || loading) return;
 
-    console.log("🟡 handleSubmit triggered")
-
-    setLoading(true)
-    setResult("")
-    setConfidence(null)
+    setLoading(true);
+    setResult('');
+    setConfidence(null);
 
     try {
-      console.log("🔵 Sending review to Flask backend:", review)
-      const response = await axios.post("http://localhost:5000/predict", {
+      const response = await axios.post('http://localhost:5000/predict', {
         review,
-      })
+      });
 
-      const { label, confidence } = response.data
-      console.log("🟢 Received from Flask:", { label, confidence })
+      const { label, confidence } = response.data;
 
-      setResult(label)
-      setConfidence(confidence)
+      setResult(label);
+      setConfidence(confidence);
 
-      console.log("🟣 Sending to MongoDB backend...")
-      const saveRes = await axios.post("http://localhost:5015/api/sentiments", {
+      const saveRes = await axios.post('http://localhost:5015/api/sentiments', {
         review,
         label,
         confidence,
-      })
-      console.log("✅ MongoDB save response:", saveRes.data)
+      });
+      console.log('✅ MongoDB save response:', saveRes.data);
     } catch (error) {
-      console.error("❌ Error:", error)
-      setResult("Error: " + (error.response?.data?.error || "Server error"))
+      console.error('❌ Error:', error);
+      setResult('Error: ' + (error.response?.data?.error || 'Server error'));
     }
 
-    setLoading(false)
-  }
+    setLoading(false);
+  };
 
   return (
     <div className="review-card">
@@ -64,13 +59,13 @@ const ReviewClassifier = () => {
           rows={4}
         />
         <button type="submit" disabled={loading}>
-          {loading ? "Analyzing..." : "Analyze"}
+          {loading ? 'Analyzing...' : 'Analyze'}
         </button>
       </form>
 
       {result && (
         <div className="result">
-          Sentiment:{" "}
+          Sentiment:{' '}
           <span>
             {result} {emojiMap[result]}
           </span>
@@ -79,7 +74,7 @@ const ReviewClassifier = () => {
 
       {confidence && (
         <div className="confidence">
-          Confidence:{" "}
+          Confidence:{' '}
           <span>
             Negative: {confidence.Negative}% | Neutral: {confidence.Neutral}% |
             Positive: {confidence.Positive}%
@@ -87,7 +82,7 @@ const ReviewClassifier = () => {
         </div>
       )}
     </div>
-  )
-}
+  );
+};
 
-export default ReviewClassifier
+export default ReviewClassifier;

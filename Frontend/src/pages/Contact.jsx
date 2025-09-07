@@ -1,7 +1,6 @@
-import React from "react"
-import "../components/About.css"
-import Header from "../components/Header"
-import styles from "../components/contact.module.css"
+import '../components/About.css';
+import Header from '../components/Header';
+import styles from '../components/contact.module.css';
 
 const Contact = () => {
   return (
@@ -88,7 +87,7 @@ const Contact = () => {
         </div>
       </section>
     </>
-  )
-}
+  );
+};
 
-export default Contact
+export default Contact;

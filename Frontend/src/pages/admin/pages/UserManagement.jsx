@@ -1,111 +1,111 @@
-import React, { useEffect, useState } from "react"
-import axios from "axios"
-import cloudinaryAxios from "../../../utils/cloudinaryAxios.js" // adjust path as needed
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+import cloudinaryAxios from '../../../utils/cloudinaryAxios.js'; // adjust path as needed
 
 const UserManagement = () => {
-  const [users, setUsers] = useState([])
+  const [users, setUsers] = useState([]);
   const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    password: "",
-    role: "user",
-    profileImage: "",
-  })
+    name: '',
+    email: '',
+    password: '',
+    role: 'user',
+    profileImage: '',
+  });
 
-  const [editingUserId, setEditingUserId] = useState(null)
+  const [editingUserId, setEditingUserId] = useState(null);
 
   // Fetch all users
   const fetchUsers = async () => {
     try {
-      const res = await axios.get("http://localhost:5015/api/users")
-      setUsers(res.data)
+      const res = await axios.get('http://localhost:5015/api/users');
+      setUsers(res.data);
     } catch (error) {
-      console.error("Error fetching users:", error)
+      console.error('Error fetching users:', error);
     }
-  }
+  };
 
   useEffect(() => {
-    fetchUsers()
-  }, [])
+    fetchUsers();
+  }, []);
 
   // Secure image upload to Cloudinary
   const handleImageUpload = async (file) => {
     try {
       const { data } = await axios.post(
-        "http://localhost:5015/api/cloudinary/generate-signature"
-      )
+        'http://localhost:5015/api/cloudinary/generate-signature',
+      );
 
-      const uploadForm = new FormData()
-      uploadForm.append("file", file)
-      uploadForm.append("api_key", data.apiKey)
-      uploadForm.append("timestamp", data.timestamp)
-      uploadForm.append("signature", data.signature)
-      uploadForm.append("folder", "user-profiles")
+      const uploadForm = new FormData();
+      uploadForm.append('file', file);
+      uploadForm.append('api_key', data.apiKey);
+      uploadForm.append('timestamp', data.timestamp);
+      uploadForm.append('signature', data.signature);
+      uploadForm.append('folder', 'user-profiles');
 
-      const uploadRes = await cloudinaryAxios.post("/image/upload", uploadForm)
+      const uploadRes = await cloudinaryAxios.post('/image/upload', uploadForm);
 
-      return uploadRes.data.secure_url
+      return uploadRes.data.secure_url;
     } catch (err) {
-      console.error("Image upload error:", err)
-      return ""
+      console.error('Image upload error:', err);
+      return '';
     }
-  }
+  };
 
   const handleInputChange = async (e) => {
-    const { name, value, files } = e.target
+    const { name, value, files } = e.target;
 
-    if (name === "profileImage" && files[0]) {
-      const imageUrl = await handleImageUpload(files[0])
-      setFormData({ ...formData, profileImage: imageUrl })
+    if (name === 'profileImage' && files[0]) {
+      const imageUrl = await handleImageUpload(files[0]);
+      setFormData({ ...formData, profileImage: imageUrl });
     } else {
-      setFormData({ ...formData, [name]: value })
+      setFormData({ ...formData, [name]: value });
     }
-  }
+  };
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
     try {
       if (editingUserId) {
         await axios.put(
           `http://localhost:5015/api/users/${editingUserId}`,
-          formData
-        )
+          formData,
+        );
       } else {
-        await axios.post("http://localhost:5015/api/users", formData)
+        await axios.post('http://localhost:5015/api/users', formData);
       }
       setFormData({
-        name: "",
-        email: "",
-        password: "",
-        role: "user",
-        profileImage: "",
-      })
-      setEditingUserId(null)
-      fetchUsers()
+        name: '',
+        email: '',
+        password: '',
+        role: 'user',
+        profileImage: '',
+      });
+      setEditingUserId(null);
+      fetchUsers();
     } catch (error) {
-      console.error("Error saving user:", error)
+      console.error('Error saving user:', error);
     }
-  }
+  };
 
   const handleEdit = (user) => {
     setFormData({
       name: user.name,
       email: user.email,
-      password: "", // Do not prefill password
+      password: '', // Do not prefill password
       role: user.role,
       profileImage: user.profileImage,
-    })
-    setEditingUserId(user._id)
-  }
+    });
+    setEditingUserId(user._id);
+  };
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:5015/api/users/${id}`)
-      fetchUsers()
+      await axios.delete(`http://localhost:5015/api/users/${id}`);
+      fetchUsers();
     } catch (error) {
-      console.error("Error deleting user:", error)
+      console.error('Error deleting user:', error);
     }
-  }
+  };
 
   return (
     <div className="container mx-auto p-4">
@@ -169,7 +169,7 @@ const UserManagement = () => {
           type="submit"
           className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 md:col-span-2"
         >
-          {editingUserId ? "Update User" : "Add User"}
+          {editingUserId ? 'Update User' : 'Add User'}
         </button>
       </form>
 
@@ -225,7 +225,7 @@ const UserManagement = () => {
         </table>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default UserManagement
+export default UserManagement;

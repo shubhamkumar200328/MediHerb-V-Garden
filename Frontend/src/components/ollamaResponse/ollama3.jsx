@@ -1,15 +1,15 @@
-import React, { useState } from "react"
-import { getOllamaResponse } from "../../services/ollamaService.js"
+import { useState } from 'react';
+import { getOllamaResponse } from '../../services/ollamaService.js';
 
 function OllamaChat() {
-  const [prompt, setPrompt] = useState("")
-  const [response, setResponse] = useState("")
+  const [prompt, setPrompt] = useState('');
+  const [response, setResponse] = useState('');
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
-    const reply = await getOllamaResponse(prompt)
-    setResponse(reply)
-  }
+    e.preventDefault();
+    const reply = await getOllamaResponse(prompt);
+    setResponse(reply);
+  };
 
   return (
     <div>
@@ -19,7 +19,7 @@ function OllamaChat() {
       </form>
       <p>Response: {response}</p>
     </div>
-  )
+  );
 }
 
-export default OllamaChat
+export default OllamaChat;

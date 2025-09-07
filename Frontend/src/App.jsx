@@ -1,6 +1,5 @@
-import React from "react"
-import AppRouter from "./routes/Router"
-import AuthProvider from "./context/authContext.jsx"
+import AppRouter from './routes/Router';
+import AuthProvider from './context/authContext.jsx';
 
 function App() {
   return (
@@ -9,7 +8,7 @@ function App() {
         <AppRouter />
       </div>
     </AuthProvider>
-  )
+  );
 }
 
-export default App
+export default App;

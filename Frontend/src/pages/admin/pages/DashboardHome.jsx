@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react"
-import axios from "axios"
-import { FaLeaf, FaUsers, FaChartLine, FaBook } from "react-icons/fa"
-import "../../../components/adminStyling/DashboardHome.css"
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+import { FaLeaf, FaUsers, FaChartLine, FaBook } from 'react-icons/fa';
+import '../../../components/adminStyling/DashboardHome.css';
 
 function DashboardHome() {
   const [stats, setStats] = useState({
@@ -9,32 +9,32 @@ function DashboardHome() {
     totalUsers: 0,
     totalVisits: 0, // You can mock this for now
     activeModules: 0,
-  })
+  });
 
   const fetchDashboardData = async () => {
     try {
-      const token = localStorage.getItem("token")
-      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`
+      const token = localStorage.getItem('token');
+      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 
       const [usersRes, plantsRes] = await Promise.all([
-        axios.get("http://localhost:5015/api/users"),
-        axios.get("http://localhost:5015/api/plants"),
-      ])
+        axios.get('http://localhost:5015/api/users'),
+        axios.get('http://localhost:5015/api/plants'),
+      ]);
 
       setStats({
         totalUsers: usersRes.data.length,
         totalPlants: plantsRes.data.length,
         activeModules: 10, // Placeholder, you can fetch real data
         totalVisits: 5678, // Placeholder
-      })
+      });
     } catch (err) {
-      console.error("Error fetching dashboard stats:", err)
+      console.error('Error fetching dashboard stats:', err);
     }
-  }
+  };
 
   useEffect(() => {
-    fetchDashboardData()
-  }, [])
+    fetchDashboardData();
+  }, []);
 
   return (
     <div className="dashboard-container">
@@ -97,12 +97,14 @@ function DashboardHome() {
         />
       </div>
     </div>
-  )
+  );
 }
 
-export default DashboardHome
+export default DashboardHome;
 
 /* Reusable Components (same as before) */
+import PropTypes from 'prop-types';
+
 function StatCard({ title, value, icon }) {
   return (
     <div className="stat-card">
@@ -112,8 +114,14 @@ function StatCard({ title, value, icon }) {
         <p>{value}</p>
       </div>
     </div>
-  )
+  );
 }
+
+StatCard.propTypes = {
+  title: PropTypes.string.isRequired,
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+  icon: PropTypes.node.isRequired,
+};
 
 function ActivityItem({ user, action, time }) {
   return (
@@ -122,13 +130,24 @@ function ActivityItem({ user, action, time }) {
       <span className="activity-action">{action}</span>
       <span className="activity-time">{time}</span>
     </li>
-  )
+  );
 }
+
+ActivityItem.propTypes = {
+  user: PropTypes.string.isRequired,
+  action: PropTypes.string.isRequired,
+  time: PropTypes.string.isRequired,
+};
 
 function QuickAction({ title, link }) {
   return (
     <a href={link} className="quick-action">
       {title}
     </a>
-  )
+  );
 }
+
+QuickAction.propTypes = {
+  title: PropTypes.string.isRequired,
+  link: PropTypes.string.isRequired,
+};

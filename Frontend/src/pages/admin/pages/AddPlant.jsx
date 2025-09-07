@@ -1,28 +1,28 @@
-import React, { useState } from "react"
-import "../../../components/AddPlant.css"
-import Header from "../../../components/Header"
+import { useState } from 'react';
+import '../../../components/AddPlant.css';
+import Header from '../../../components/Header';
 
 const AddPlant = () => {
-  const [name, setName] = useState("")
-  const [image, setImage] = useState("")
-  const [description, setDescription] = useState("")
-  const [medicinalUse, setMedicinalUse] = useState("")
-  const [region, setRegion] = useState("")
-  const [botanicalDetails, setBotanicalDetails] = useState("")
-  const [cultivationTips, setCultivationTips] = useState("")
-  const [kingdom, setKingdom] = useState("")
-  const [clade, setClade] = useState("")
-  const [order, setOrder] = useState("")
-  const [family, setFamily] = useState("")
-  const [genus, setGenus] = useState("")
-  const [species, setSpecies] = useState("")
-  const [binomialName, setBinomialName] = useState("")
-  const [about, setAbout] = useState("")
-  const [detailDescription, setDetailDescription] = useState("")
-  const [reference, setReference] = useState("")
+  const [name, setName] = useState('');
+  const [image, setImage] = useState('');
+  const [description, setDescription] = useState('');
+  const [medicinalUse, setMedicinalUse] = useState('');
+  const [region, setRegion] = useState('');
+  const [botanicalDetails, setBotanicalDetails] = useState('');
+  const [cultivationTips, setCultivationTips] = useState('');
+  const [kingdom, setKingdom] = useState('');
+  const [clade, setClade] = useState('');
+  const [order, setOrder] = useState('');
+  const [family, setFamily] = useState('');
+  const [genus, setGenus] = useState('');
+  const [species, setSpecies] = useState('');
+  const [binomialName, setBinomialName] = useState('');
+  const [about, setAbout] = useState('');
+  const [detailDescription, setDetailDescription] = useState('');
+  const [reference, setReference] = useState('');
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
     // Check if all fields are filled
     if (
@@ -34,8 +34,8 @@ const AddPlant = () => {
       !botanicalDetails ||
       !cultivationTips
     ) {
-      alert("All fields are required!")
-      return
+      alert('All fields are required!');
+      return;
     }
 
     const newPlant = {
@@ -46,39 +46,39 @@ const AddPlant = () => {
       region,
       botanicalDetails,
       cultivationTips,
-    }
+    };
 
     // Log the data being sent
-    console.log("Sending data:", newPlant)
+    console.log('Sending data:', newPlant);
 
     try {
-      const response = await fetch("http://localhost:5010/api/plants", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
+      const response = await fetch('http://localhost:5015/api/plants', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(newPlant),
-      })
+      });
 
       if (!response.ok) {
-        throw new Error(`Failed to add plant: ${response.statusText}`)
+        throw new Error(`Failed to add plant: ${response.statusText}`);
       }
 
-      const addedPlant = await response.json()
-      alert(`Plant added: ${addedPlant.name}`)
-      resetForm()
+      const addedPlant = await response.json();
+      alert(`Plant added: ${addedPlant.name}`);
+      resetForm();
     } catch (error) {
-      alert(error.message)
+      alert(error.message);
     }
-  }
+  };
 
   const resetForm = () => {
-    setName("")
-    setImage("")
-    setDescription("")
-    setMedicinalUse("")
-    setRegion("")
-    setBotanicalDetails("")
-    setCultivationTips("")
-  }
+    setName('');
+    setImage('');
+    setDescription('');
+    setMedicinalUse('');
+    setRegion('');
+    setBotanicalDetails('');
+    setCultivationTips('');
+  };
 
   return (
     <div>
@@ -225,7 +225,7 @@ const AddPlant = () => {
         </form>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default AddPlant
+export default AddPlant;

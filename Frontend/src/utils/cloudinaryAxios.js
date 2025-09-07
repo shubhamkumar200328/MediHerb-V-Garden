@@ -1,23 +1,11 @@
-// utils/cloudinaryAxios.js
-import axios from "axios"
+import axios from 'axios';
 
 const cloudinaryAxios = axios.create({
-  baseURL: "https://api.cloudinary.com/v1_1/dfecczhpy",
+  baseURL: 'https://api.cloudinary.com/v1_1/dfecczhpy',
   headers: {
-    "Content-Type": "multipart/form-data",
+    'Content-Type': 'multipart/form-data',
   },
-  withCredentials: false, // ✅ VERY IMPORTANT for browser safety
-})
+  withCredentials: false,
+});
 
-export default cloudinaryAxios
-
-// import axios from "axios"
-
-// const cloudinaryAxios = axios.create({
-//   baseURL: "https://api.cloudinary.com/v1_1/dfecczhpy",
-//   headers: {
-//     "Content-Type": "multipart/form-data",
-//   },
-// })
-
-// export default cloudinaryAxios
+export default cloudinaryAxios;

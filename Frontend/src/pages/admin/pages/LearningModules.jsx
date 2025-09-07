@@ -1,119 +1,119 @@
-import React, { useState, useEffect } from "react"
-import axios from "axios"
-import "./LearningModules.css"
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+import './LearningModules.css';
 
 const LearningModule = () => {
-  const [modules, setModules] = useState([])
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(null)
-  const [success, setSuccess] = useState(null)
-  const [editingModule, setEditingModule] = useState(null)
+  const [modules, setModules] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(null);
+  const [editingModule, setEditingModule] = useState(null);
   const [formData, setFormData] = useState({
-    plantId: "",
-    title: "",
-    description: "",
-    content: "",
-    duration: "",
-    level: "beginner",
-    prerequisites: "",
-    objectives: "",
-    resources: "",
-    image: "",
-    category: "",
-    tags: "",
-  })
+    plantId: '',
+    title: '',
+    description: '',
+    content: '',
+    duration: '',
+    level: 'beginner',
+    prerequisites: '',
+    objectives: '',
+    resources: '',
+    image: '',
+    category: '',
+    tags: '',
+  });
 
   // Get token from localStorage
-  const token = localStorage.getItem("token")
+  const token = localStorage.getItem('token');
 
   // Configure axios defaults
-  axios.defaults.headers.common["Authorization"] = `Bearer ${token}`
+  axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 
   const fetchModules = async () => {
     try {
-      setLoading(true)
+      setLoading(true);
       const response = await axios.get(
-        "http://localhost:5015/api/learning-modules"
-      )
-      setModules(response.data)
-      setError(null)
+        'http://localhost:5015/api/learning-modules',
+      );
+      setModules(response.data);
+      setError(null);
     } catch (err) {
-      console.error("Error fetching modules:", err)
+      console.error('Error fetching modules:', err);
       setError(
-        err.response?.data?.message || "Failed to fetch learning modules"
-      )
+        err.response?.data?.message || 'Failed to fetch learning modules',
+      );
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   useEffect(() => {
-    fetchModules()
-  }, [])
+    fetchModules();
+  }, []);
 
   const handleInputChange = (e) => {
-    const { name, value } = e.target
+    const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
       [name]: value,
-    }))
-  }
+    }));
+  };
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
     // Convert comma-separated strings to arrays
     const payload = {
       ...formData,
       prerequisites: formData.prerequisites
-        ? formData.prerequisites.split(",").map((s) => s.trim())
+        ? formData.prerequisites.split(',').map((s) => s.trim())
         : [],
       objectives: formData.objectives
-        ? formData.objectives.split(",").map((s) => s.trim())
+        ? formData.objectives.split(',').map((s) => s.trim())
         : [],
       resources: formData.resources
-        ? formData.resources.split(",").map((s) => s.trim())
+        ? formData.resources.split(',').map((s) => s.trim())
         : [],
-      tags: formData.tags ? formData.tags.split(",").map((s) => s.trim()) : [],
-    }
+      tags: formData.tags ? formData.tags.split(',').map((s) => s.trim()) : [],
+    };
 
     try {
       if (editingModule) {
         await axios.put(
           `http://localhost:5015/api/learning-modules/${editingModule._id}`,
-          payload
-        )
-        setSuccess("Module updated successfully!")
+          payload,
+        );
+        setSuccess('Module updated successfully!');
       } else {
-        await axios.post("http://localhost:5015/api/learning-modules", payload)
-        setSuccess("Module added successfully!")
+        await axios.post('http://localhost:5015/api/learning-modules', payload);
+        setSuccess('Module added successfully!');
       }
 
       setFormData({
-        title: "",
-        description: "",
-        content: "",
-        duration: "",
-        level: "beginner",
-        prerequisites: "",
-        objectives: "",
-        resources: "",
-        image: "",
-        category: "",
-        tags: "",
-      })
-      setEditingModule(null)
-      fetchModules()
+        title: '',
+        description: '',
+        content: '',
+        duration: '',
+        level: 'beginner',
+        prerequisites: '',
+        objectives: '',
+        resources: '',
+        image: '',
+        category: '',
+        tags: '',
+      });
+      setEditingModule(null);
+      fetchModules();
     } catch (err) {
-      console.error("Error saving module:", err)
-      setError(err.response?.data?.message || "Failed to save module")
+      console.error('Error saving module:', err);
+      setError(err.response?.data?.message || 'Failed to save module');
     }
-  }
+  };
 
   const handleEdit = (module) => {
-    setEditingModule(module)
+    setEditingModule(module);
     setFormData({
-      plantId: module.plantId || "",
+      plantId: module.plantId || '',
       title: module.title,
       description: module.description,
       content: module.content,
@@ -125,40 +125,40 @@ const LearningModule = () => {
       image: module.image,
       category: module.category,
       tags: module.tags,
-    })
-  }
+    });
+  };
 
   const handleDelete = async (id) => {
-    if (window.confirm("Are you sure you want to delete this module?")) {
+    if (window.confirm('Are you sure you want to delete this module?')) {
       try {
-        await axios.delete(`http://localhost:5015/api/learning-modules/${id}`)
-        setSuccess("Module deleted successfully!")
-        fetchModules()
+        await axios.delete(`http://localhost:5015/api/learning-modules/${id}`);
+        setSuccess('Module deleted successfully!');
+        fetchModules();
       } catch (err) {
-        console.error("Error deleting module:", err)
-        setError(err.response?.data?.message || "Failed to delete module")
+        console.error('Error deleting module:', err);
+        setError(err.response?.data?.message || 'Failed to delete module');
       }
     }
-  }
+  };
 
   const handleCancel = () => {
-    setEditingModule(null)
+    setEditingModule(null);
     setFormData({
-      title: "",
-      description: "",
-      content: "",
-      duration: "",
-      level: "beginner",
-      prerequisites: "",
-      objectives: "",
-      resources: "",
-      image: "",
-      category: "",
-      tags: "",
-    })
-  }
+      title: '',
+      description: '',
+      content: '',
+      duration: '',
+      level: 'beginner',
+      prerequisites: '',
+      objectives: '',
+      resources: '',
+      image: '',
+      category: '',
+      tags: '',
+    });
+  };
 
-  if (loading) return <div className="loading">Loading modules...</div>
+  if (loading) return <div className="loading">Loading modules...</div>;
 
   return (
     <div className="learning-module-container">
@@ -172,7 +172,7 @@ const LearningModule = () => {
             {modules.map((module) => (
               <div key={module._id} className="module-item">
                 <img
-                  src={module.image || "/default-module.png"}
+                  src={module.image || '/default-module.png'}
                   alt={module.title}
                   className="module-image"
                 />
@@ -199,7 +199,7 @@ const LearningModule = () => {
         </div>
 
         <div className="module-form-card">
-          <h3>{editingModule ? "Edit Module" : "Add New Module"}</h3>
+          <h3>{editingModule ? 'Edit Module' : 'Add New Module'}</h3>
           <form onSubmit={handleSubmit} className="module-form">
             <div className="form-group">
               <label className="required">Plant ID</label>
@@ -331,7 +331,7 @@ const LearningModule = () => {
 
             <div className="form-actions">
               <button type="submit">
-                {editingModule ? "Update Module" : "Add Module"}
+                {editingModule ? 'Update Module' : 'Add Module'}
               </button>
               {editingModule && (
                 <button type="button" onClick={handleCancel}>
@@ -343,7 +343,7 @@ const LearningModule = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default LearningModule
+export default LearningModule;

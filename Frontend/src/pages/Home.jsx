@@ -1,8 +1,7 @@
-import React from "react"
-import Header from "../components/Header"
-import { Link } from "react-router-dom"
-import "../components/Home.css"
-import Slideshow2 from "../components/ImageSlideShowtwo"
+import Header from '../components/Header';
+import { Link } from 'react-router-dom';
+import '../components/Home.css';
+import Slideshow from '../components/imageSlideShow.jsx';
 
 const Home = () => {
   return (
@@ -10,8 +9,7 @@ const Home = () => {
       <Header />
 
       <div className="home-container">
-        {/* Hero Section */}
-        <section className="hero-section">
+        <section className="hero-section h-lvh">
           <div className="hero-content">
             <h1>Welcome to MediHerb V Garden</h1>
             <p>
@@ -24,7 +22,7 @@ const Home = () => {
             </Link>
           </div>
           <div className="slideShow mt-5">
-            <Slideshow2 />
+            <Slideshow />
           </div>
         </section>
 
@@ -62,18 +60,24 @@ const Home = () => {
           <div className="ratings-container">
             <div className="rating-card">
               <p>
-                "Amazing platform! A perfect blend of technology and Ayurveda."
+                &quot;Amazing platform! A perfect blend of technology and
+                Ayurveda.&quot;
               </p>
               <span>⭐⭐⭐⭐⭐</span>
               <h4>- Ramesh K.</h4>
             </div>
             <div className="rating-card">
-              <p>"Loved the 3D models. It made learning fun and engaging."</p>
+              <p>
+                &quot;Loved the 3D models. It made learning fun and
+                engaging.&quot;
+              </p>
               <span>⭐⭐⭐⭐⭐</span>
               <h4>- Priya S.</h4>
             </div>
             <div className="rating-card">
-              <p>"Informative and user-friendly. Highly recommend!"</p>
+              <p>
+                &quot;Informative and user-friendly. Highly recommend!&quot;
+              </p>
               <span>⭐⭐⭐⭐⭐</span>
               <h4>- Amit J.</h4>
             </div>
@@ -121,7 +125,7 @@ const Home = () => {
         </section>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;

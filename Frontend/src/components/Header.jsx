@@ -1,43 +1,43 @@
-import React, { useState, useEffect, useRef } from "react"
-import { Link, useNavigate } from "react-router-dom"
-import "./Header.css"
+import { useState, useEffect, useRef } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import './Header.css';
 
 const Header = () => {
-  const navigate = useNavigate()
-  const [user, setUser] = useState(null)
-  const [dropdownOpen, setDropdownOpen] = useState(false)
-  const dropdownRef = useRef(null)
+  const navigate = useNavigate();
+  const [user, setUser] = useState(null);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
 
   useEffect(() => {
-    const token = localStorage.getItem("token")
-    const userRole = localStorage.getItem("userRole")
+    const token = localStorage.getItem('token');
+    const userRole = localStorage.getItem('userRole');
     if (token && userRole) {
-      setUser({ token, role: userRole })
+      setUser({ token, role: userRole });
     }
-  }, [])
+  }, []);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        setDropdownOpen(false)
+        setDropdownOpen(false);
       }
-    }
+    };
 
-    document.addEventListener("mousedown", handleClickOutside)
-    return () => document.removeEventListener("mousedown", handleClickOutside)
-  }, [])
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   const handleLogout = () => {
-    localStorage.removeItem("token")
-    localStorage.removeItem("userRole")
-    setUser(null)
-    setDropdownOpen(false)
-    navigate("/login")
-  }
+    localStorage.removeItem('token');
+    localStorage.removeItem('userRole');
+    setUser(null);
+    setDropdownOpen(false);
+    navigate('/login');
+  };
 
   const toggleDropdown = () => {
-    setDropdownOpen(!dropdownOpen)
-  }
+    setDropdownOpen(!dropdownOpen);
+  };
 
   return (
     <header className="header-container">
@@ -56,7 +56,7 @@ const Header = () => {
             <Link to="/plant-details">Explore</Link>
           </li>
           <li>
-            <Link to="/admindashboard">AdminDashboard</Link>
+            <Link to="/aichatpage">Let Me Assist</Link>
           </li>
           {!user ? (
             <>
@@ -74,18 +74,21 @@ const Header = () => {
           ) : (
             <li className="dropdown-container" ref={dropdownRef}>
               <button className="dropdown-btn" onClick={toggleDropdown}>
-                {user.role === "admin" ? "Admin" : "User"} ▼
+                {user.role === 'admin' ? 'Admin' : 'User'} ▼
               </button>
               {dropdownOpen && (
                 <div className="dropdown-menu">
-                  <Link
-                    to="/userprofile"
-                    className="dropdown-item"
-                    onClick={() => setDropdownOpen(false)}
-                  >
-                    Profile
-                  </Link>
-                  {user.role === "admin" && (
+                  {user.role !== 'admin' && (
+                    <Link
+                      to="/userprofile"
+                      className="dropdown-item"
+                      onClick={() => setDropdownOpen(false)}
+                    >
+                      Profile
+                    </Link>
+                  )}
+
+                  {user.role === 'admin' && (
                     <Link
                       to="/admindashboard"
                       className="dropdown-item"
@@ -94,6 +97,7 @@ const Header = () => {
                       Admin Dashboard
                     </Link>
                   )}
+
                   <button
                     onClick={handleLogout}
                     className="dropdown-item logout-btn"
@@ -104,13 +108,10 @@ const Header = () => {
               )}
             </li>
           )}
-          <li>
-            <Link to="/userprofile">UserProfile</Link>
-          </li>
         </ul>
       </nav>
     </header>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;

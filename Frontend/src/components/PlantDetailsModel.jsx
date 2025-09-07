@@ -1,8 +1,8 @@
-import React from "react"
-import "./PlantDetailsModel.css"
+import PropTypes from 'prop-types';
+import './PlantDetailsModel.css';
 
 const PlantDetailsModal = ({ plant, onClose }) => {
-  if (!plant) return null // If no plant data, return null
+  if (!plant) return null;
 
   return (
     <div className="modal">
@@ -29,7 +29,19 @@ const PlantDetailsModal = ({ plant, onClose }) => {
         </p>
       </div>
     </div>
-  )
-}
+  );
+};
+PlantDetailsModal.propTypes = {
+  plant: PropTypes.shape({
+    name: PropTypes.string,
+    image: PropTypes.string,
+    description: PropTypes.string,
+    medicinalUse: PropTypes.string,
+    region: PropTypes.string,
+    botanicalDetails: PropTypes.string,
+    cultivationTips: PropTypes.string,
+  }),
+  onClose: PropTypes.func.isRequired,
+};
 
-export default PlantDetailsModal
+export default PlantDetailsModal;

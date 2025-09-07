@@ -1,6 +1,6 @@
-import React from "react"
-import { Link } from "react-router-dom"
-import "../components/PlantCard.css"
+import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+import '../components/PlantCard.css';
 
 const PlantCard = ({ plant }) => {
   return (
@@ -25,7 +25,17 @@ const PlantCard = ({ plant }) => {
         </Link>
       </div>
     </div>
-  )
-}
+  );
+};
+PlantCard.propTypes = {
+  plant: PropTypes.shape({
+    id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+    image: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    description: PropTypes.string,
+    medicinalUse: PropTypes.string,
+    region: PropTypes.string,
+  }).isRequired,
+};
 
-export default PlantCard
+export default PlantCard;

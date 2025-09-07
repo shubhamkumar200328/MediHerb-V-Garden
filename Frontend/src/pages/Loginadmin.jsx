@@ -1,32 +1,32 @@
-import { useState, useContext } from "react"
-import { AuthContext } from "../context/authContext.jsx"
-import "../components/Login.css" // Import CSS file
-import Header from "../components/Header.jsx"
+import { useState, useContext } from 'react';
+import { AuthContext } from '../context/authContext.jsx';
+import '../components/Login.css'; // Import CSS file
+import Header from '../components/Header.jsx';
 
 const Loginadmin = () => {
-  const { login } = useContext(AuthContext)
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
-  const [error, setError] = useState("")
-  const [loading, setLoading] = useState(false)
+  const { login } = useContext(AuthContext);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
-    setLoading(true)
-    setError("")
+    e.preventDefault();
+    setLoading(true);
+    setError('');
 
     try {
-      console.log("Attempting login...")
-      await login({ email, password })
-      console.log("Login successful")
-      window.location.href = "/admin/admindashboard" // Redirect to user profile after login
+      console.log('Attempting login...');
+      await login({ email, password });
+      console.log('Login successful');
+      window.location.href = '/admin/admindashboard';
     } catch (err) {
-      console.error("Login error:", err)
-      setError(err.message || "Login failed. Please check your credentials.")
+      console.error('Login error:', err);
+      setError(err.message || 'Login failed. Please check your credentials.');
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   return (
     <>
@@ -50,12 +50,12 @@ const Loginadmin = () => {
             required
           />
           <button type="submit" disabled={loading}>
-            {loading ? "Logging in..." : "Login"}
+            {loading ? 'Logging in...' : 'Login'}
           </button>
         </form>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default Loginadmin
+export default Loginadmin;

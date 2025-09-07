@@ -1,6 +1,5 @@
-import React from "react"
-import "../components/Contact.css"
-import Header from "../components/Header"
+import '../components/Contact.css';
+import Header from '../components/Header';
 
 const About = () => {
   return (
@@ -14,7 +13,7 @@ const About = () => {
           interactive virtual garden showcasing the diverse range of herbs used
           in
           <span className="highlight">
-            {" "}
+            {' '}
             Ayurveda, Yoga & Naturopathy, Unani, Siddha, and Homeopathy (AYUSH)
           </span>
           .
@@ -22,9 +21,9 @@ const About = () => {
         <p className="about-mission">
           Our mission is to make the knowledge of traditional herbal practices
           accessible to everyone, while promoting awareness and understanding of
-          natural healing methods. Learn about each plant's{" "}
+          natural healing methods. Learn about each plants{' '}
           <span className="highlight">botanical details</span>,
-          <span className="highlight">medicinal uses</span>, and{" "}
+          <span className="highlight">medicinal uses</span>, and{' '}
           <span className="highlight">cultivation practices</span>.
         </p>
         <p className="about-closing">
@@ -33,7 +32,7 @@ const About = () => {
         </p>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default About
+export default About;
