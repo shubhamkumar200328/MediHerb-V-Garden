@@ -13,10 +13,9 @@ router.post('/generate', async (req, res) => {
       prompt: `${basePrompt}${prompt}\nExpert:`,
       stream: false,
     });
-
-    res.json(response.data);
+    res.json({ response: response.data.response });
   } catch (error) {
-    console.error('Ollama Error:', error.message);
+    console.error('Ollama Error:', error.response?.data || error.message);
     res.status(500).json({ error: 'Failed to fetch from Ollama' });
   }
 });
