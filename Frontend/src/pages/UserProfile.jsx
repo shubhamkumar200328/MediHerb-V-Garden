@@ -208,9 +208,13 @@ function UserProfile() {
         )}
       </div>
 
-      <div className="reviewClassifier m-7">
-        <ReviewClassifier />
-      </div>
+      {user.role === 'user' ? (
+        <div className="reviewClassifier m-7">
+          <ReviewClassifier />
+        </div>
+      ) : (
+        ''
+      )}
     </>
   );
 }

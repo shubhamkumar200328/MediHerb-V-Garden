@@ -90,6 +90,15 @@ const Header = () => {
 
                   {user.role === 'admin' && (
                     <Link
+                      to="/userprofile"
+                      className="dropdown-item"
+                      onClick={() => setDropdownOpen(false)}
+                    >
+                      Profile
+                    </Link>
+                  )}
+                  {user.role === 'admin' && (
+                    <Link
                       to="/admindashboard"
                       className="dropdown-item"
                       onClick={() => setDropdownOpen(false)}

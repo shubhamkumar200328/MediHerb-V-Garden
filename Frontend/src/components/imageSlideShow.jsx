@@ -10,8 +10,8 @@ const images = [image_1, image_3, image_4, image_5, image_2];
 
 const Slideshow = () => {
   return (
-    <div className="slideShow">
-      <Zoom scale={0.4}>
+    <div className="slideShow p-3">
+      <Zoom scale={0.1}>
         {images.map((each, index) => (
           <img
             key={index}

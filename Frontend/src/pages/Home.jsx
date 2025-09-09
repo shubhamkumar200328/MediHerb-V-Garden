@@ -8,7 +8,7 @@ const Home = () => {
     <>
       <Header />
 
-      <div className="home-container">
+      <div className="home-container py-2">
         <section className="hero-section h-lvh">
           <div className="hero-content">
             <h1>Welcome to MediHerb V Garden</h1>
@@ -21,7 +21,7 @@ const Home = () => {
               Explore Now
             </Link>
           </div>
-          <div className="slideShow mt-5">
+          <div className="slideShow mt-5 p-2">
             <Slideshow />
           </div>
         </section>

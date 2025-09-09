@@ -18,12 +18,12 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'http://localhost:5000', // Backend runs on port 5000
+        target: 'http://localhost:5015', // Backend runs on port 5000
         changeOrigin: true,
         secure: false,
       },
       '/auth': {
-        target: 'http://localhost:5000',
+        target: 'http://localhost:5015',
         changeOrigin: true,
         secure: false,
       },
