@@ -22,6 +22,7 @@ import ReviewClassifier from '../components/flaskRelatedCompo/ReviewClassifier';
 import ChatPage from '../components/aichatbot/ChatPage';
 import OllamaChat from '../components/ollamaResponse/ollama3';
 import ChatHistory from '../components/aichatbot/ChatHistory';
+import CropRecommendationSystem from '../components/CropRecommendationSystem';
 
 const AppRouter = () => {
   return (
@@ -46,6 +47,10 @@ const AppRouter = () => {
           <Route path="/aichatpage" element={<ChatPage />} />
           <Route path="/getyourdoutclear" element={<OllamaChat />} />
           <Route path="/chathistory" element={<ChatHistory />} />
+          <Route
+            path="/croprecommendation"
+            element={<CropRecommendationSystem />}
+          />
           <Route
             path="/admindashboard"
             element={<Navigate to="/admin/admindashboard" replace />}

@@ -61,6 +61,9 @@ const Header = () => {
           <li>
             <Link to="/chathistory">Chat History</Link>
           </li>
+          <li>
+            <Link to="/croprecommendation">Crop Recommendation</Link>
+          </li>
           {!user ? (
             <>
               <li>
