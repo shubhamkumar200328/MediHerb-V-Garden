@@ -8,7 +8,7 @@ const Home = () => {
     <>
       <Header />
 
-      <div className="home-container py-2">
+      <div className="home-container pt-2">
         <section className="hero-section h-lvh">
           <div className="hero-content">
             <h1>Welcome to MediHerb V Garden</h1>

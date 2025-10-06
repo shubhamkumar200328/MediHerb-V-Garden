@@ -58,6 +58,9 @@ const Header = () => {
           <li>
             <Link to="/aichatpage">Let Me Assist</Link>
           </li>
+          <li>
+            <Link to="/chathistory">Chat History</Link>
+          </li>
           {!user ? (
             <>
               <li>

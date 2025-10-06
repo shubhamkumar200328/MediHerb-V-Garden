@@ -3,6 +3,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import Chat from './models/Chat.js';
 
 import connectDB from './config/db.js';
 import authRoutes from './routes/auth.js';
@@ -85,4 +86,34 @@ app.use((err, req, res, next) => {
     message: 'Something went wrong!',
     error: process.env.NODE_ENV === 'development' ? err.message : undefined,
   });
+});
+
+// 🔹 Save chat
+app.post('/api/save-chat', async (req, res) => {
+  try {
+    const { userId, message } = req.body;
+
+    let chat = await Chat.findOne({ userId });
+
+    if (!chat) {
+      chat = new Chat({ userId, messages: [] });
+    }
+
+    chat.messages.push(message);
+    await chat.save();
+
+    res.json({ success: true, chat });
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+// 🔹 Get chat history
+app.get('/api/chat-history/:userId', async (req, res) => {
+  try {
+    const chat = await Chat.findOne({ userId });
+    res.json(chat ? chat.messages : []);
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message });
+  }
 });
